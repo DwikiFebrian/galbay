@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bw8bermmxhgrd"]
+
+[ext_resource type="Script" uid="uid://ce0mrq61j5yh" path="res://nasabahaktif.gd" id="1_q6551"]
+
+[node name="Nasabahaktif" type="HBoxContainer" unique_id=1801515383]
+script = ExtResource("1_q6551")
+
+[node name="avatar" type="TextureRect" parent="." unique_id=1535172053]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+
+[node name="infokiri" type="VBoxContainer" parent="." unique_id=1284700452]
+layout_mode = 2
+
+[node name="nama" type="Label" parent="infokiri" unique_id=203507610]
+layout_mode = 2
+
+[node name="return" type="Label" parent="infokiri" unique_id=1513008061]
+layout_mode = 2
+
+[node name="spacer" type="Control" parent="." unique_id=1675364312]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="turn" type="Label" parent="." unique_id=793777522]
+layout_mode = 2

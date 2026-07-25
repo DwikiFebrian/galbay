@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dwaqxko4fdhwh"]
+
+[ext_resource type="Script" uid="uid://bd6lbv28gltdw" path="res://nasabahcards.gd" id="1_dii0h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dii0h"]
+bg_color = Color(0.68607444, 0.07567818, 0.19027558, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8quj"]
+bg_color = Color(0.061658323, 0.34616864, 0.088351585, 1)
+
+[node name="Nasabahcards" type="VBoxContainer" unique_id=829026303]
+script = ExtResource("1_dii0h")
+
+[node name="fotoprofil" type="TextureRect" parent="." unique_id=469483549]
+layout_mode = 2
+stretch_mode = 5
+
+[node name="namakelas" type="Label" parent="." unique_id=1096382306]
+layout_mode = 2
+
+[node name="keuntungan" type="Label" parent="." unique_id=1321072764]
+layout_mode = 2
+
+[node name="probabilitas" type="Label" parent="." unique_id=1642567948]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1739095763]
+layout_mode = 2
+
+[node name="reject" type="Button" parent="HBoxContainer" unique_id=584989792]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_dii0h")
+text = "reject"
+
+[node name="accept" type="Button" parent="HBoxContainer" unique_id=1685732411]
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_w8quj")
+text = "accept"
+
+[connection signal="pressed" from="HBoxContainer/reject" to="." method="_on_reject_pressed"]
+[connection signal="pressed" from="HBoxContainer/accept" to="." method="_on_accept_pressed"]
