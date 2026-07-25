@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://b0y1a1n6jv7ea"]
 
 [ext_resource type="Script" uid="uid://dy5qrj8r5w056" path="res://main.gd" id="1_h2yge"]
-[ext_resource type="Texture2D" uid="uid://ni10rnjmmcud" path="res://sprite/dollar.png" id="1_ig7tw"]
-[ext_resource type="Texture2D" uid="uid://bhotri2n8u45d" path="res://sprite/profil.png" id="2_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://ni10rnjmmcud" path="res://sprite/dollar.png" id="2_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://bhotri2n8u45d" path="res://sprite/profil.png" id="3_lquwl"]
 
 [node name="Main" type="Node2D" unique_id=1255116696]
 script = ExtResource("1_h2yge")
@@ -29,28 +29,42 @@ grow_vertical = 2
 
 [node name="Panel atas" type="HBoxContainer" parent="Control/Main layout" unique_id=19668901]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 4
 alignment = 1
 
 [node name="dollar" type="TextureRect" parent="Control/Main layout/Panel atas" unique_id=549092715]
 texture_filter = 1
 layout_mode = 2
-texture = ExtResource("1_ig7tw")
+texture = ExtResource("2_1bvp3")
 stretch_mode = 5
 
 [node name="uang" type="Label" parent="Control/Main layout/Panel atas" unique_id=1202659487]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "100"
+
+[node name="money" type="HBoxContainer" parent="Control/Main layout/Panel atas" unique_id=1941701728]
+visible = false
+layout_mode = 2
 
 [node name="profil" type="TextureButton" parent="Control/Main layout/Panel atas" unique_id=230863456]
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Profil"
-texture_normal = ExtResource("2_0xm2m")
+texture_normal = ExtResource("3_lquwl")
+
+[node name="queue" type="Label" parent="Control/Main layout/Panel atas" unique_id=193759451]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "nasabah di luar"
+
+[node name="Control" type="Control" parent="Control/Main layout/Panel atas" unique_id=1212215435]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="setor" type="Label" parent="Control/Main layout/Panel atas" unique_id=768408797]
 layout_mode = 2
+size_flags_horizontal = 3
+text = "setoran & deadline"
 
 [node name="boss" type="Label" parent="Control/Main layout/Panel atas" unique_id=1603356411]
 visible = false
@@ -67,6 +81,7 @@ text = "1/n"
 [node name="Paneh tengah" type="VBoxContainer" parent="Control/Main layout" unique_id=269468019]
 layout_mode = 2
 size_flags_vertical = 3
+alignment = 1
 
 [node name="Label" type="Label" parent="Control/Main layout/Paneh tengah" unique_id=745623791]
 layout_mode = 2
