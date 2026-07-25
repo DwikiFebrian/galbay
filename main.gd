@@ -6,7 +6,7 @@ extends Node2D
 @onready var label_setor = $"Control/Main layout/Panel atas/setor"
 @onready var label_queue = $"Control/Main layout/Panel atas/queue"
 @onready var container_draft = $"Control/Main layout/Paneh tengah/Targetlist"
-@onready var container_aktif = $"Control/Main layout/VBoxContainer/Paneh bawah/list nasabah"
+@onready var container_aktif = $"Control/Main layout/list/VBoxContainer/Paneh bawah/list nasabah"
 
 var nasabah_scene = preload("res://nasabahcards.tscn")
 var active_row_scene = preload("res://nasabahaktif.tscn")
@@ -15,40 +15,44 @@ var active_row_scene = preload("res://nasabahaktif.tscn")
 var player_cash: int = 100
 var current_turn: int = 0
 var deadline: int = 12
-var quarter: int = 1
+var quarter: int = 0
 var max_turn: int = 48
-var boss_goal: int = 2000
+var target = [200, 500, 1000, 2000]
+var boss_goal: int = target[0]
 var nasabah_aktif: Array = []
 var antrean_nasabah: Array = [] # buat nyimpen 12 calon nasabah per turn
 var queue_length: int = 4
 var current_on_queue: int = 0
 var max_tampil = 2
+var weight = [3,0,0]
 
 # katalog manual
 var template_kelas = [
 	{
 		"tipe": "Low Income",
 		"modal_min": 10, "modal_max": 25,
-		"bunga_min": 0.10, "bunga_max": 0.20,
+		"bunga_min": 0.15, "bunga_max": 0.25,
 		"return_min": 4, "return_max": 7,
 		"galbay_min": 0.15, "galbay_max": 0.25,
 		"gambar": "res://sprite/low1.png"
 	}
-	#,
-	#{
-		#"tipe": "Middle Class",
-		#"modal_min": 30, "modal_max": 60,
-		#"return_min": 10, "return_max": 18,
-		#"galbay_min": 0.05, "galbay_max": 0.10,
-		#"gambar": "res://sprite/middle1.png"
-	#},
-	#{
-		#"tipe": "High Income",
-		#"modal_min": 80, "modal_max": 150,
-		#"return_min": 25, "return_max": 40,
-		#"galbay_min": 0.01, "galbay_max": 0.05,
-		#"gambar": "res://sprite/high1.png"
-	#}
+	,
+	{
+		"tipe": "Middle Class",
+		"modal_min": 30, "modal_max": 60,
+		"return_min": 10, "return_max": 18,
+		"bunga_min": 0.10, "bunga_max": 0.30,
+		"galbay_min": 0.05, "galbay_max": 0.10,
+		"gambar": "res://sprite/middle1.png"
+	},
+	{
+		"tipe": "High Income",
+		"modal_min": 80, "modal_max": 150,
+		"return_min": 25, "return_max": 40,
+		"bunga_min": 0.05, "bunga_max": 0.35,
+		"galbay_min": 0.01, "galbay_max": 0.05,
+		"gambar": "res://sprite/high1.png"
+	}
 ]
 
 func _ready() -> void:
@@ -71,8 +75,14 @@ func generate_antrean_turn(jumlah: int) -> void:
 	for child in container_draft.get_children():
 		child.queue_free()
 	
+	var class_weight = []
+	for i in range(3):
+		for j in weight[i]:
+			class_weight.append(i)
 	for i in range(jumlah):
-		var kelas_terpilih = template_kelas.pick_random()
+		#var kelas_terpilih = template_kelas.pick_random()
+		var chosen_class = class_weight.pick_random()
+		var kelas_terpilih = template_kelas[chosen_class]
 		var data_random = {
 			"id_nasabah": randi_range(1000, 9999),
 			"tipe_kelas": kelas_terpilih["tipe"],
@@ -104,7 +114,10 @@ func isi_slot_kosong() -> void:
 		kartu_baru.nasabah_ditolak.connect(proses_tolak_nasabah)
 		
 		container_draft.add_child(kartu_baru)
-		kartu_baru.isi_data(data_next)
+		if quarter == 1:
+			kartu_baru.isi_data_no_galbay(data_next)
+		else:
+			kartu_baru.isi_data(data_next)
 		
 		current_on_queue = antrean_nasabah.size()
 		jumlah_sekarang += 1
@@ -136,7 +149,7 @@ func proses_tolak_nasabah(kartu: Node) -> void:
 func _on_nextweek_pressed() -> void:
 	print("minggu berganti")
 	
-	var penghutang = get_node("Control/Main layout/VBoxContainer/Paneh bawah/list nasabah")
+	var penghutang = get_node("Control/Main layout/list/VBoxContainer/Paneh bawah/list nasabah")
 	for nasabah in penghutang.get_children():
 		#var kartu_baru = active_row_scene.instantiate()
 		#player_cash += nasabah["cicilan_per_turn"]
@@ -157,6 +170,8 @@ func _on_nextweek_pressed() -> void:
 		setor_boss()
 		current_turn = 0
 		quarter += 1
+		boss_goal = target[quarter]
+		new_quarter()
 	
 	update_ui_header()
 	generate_antrean_turn(queue_length)
@@ -166,3 +181,6 @@ func setor_boss():
 		print("Game Over")
 	else:
 		player_cash -= boss_goal
+		
+func new_quarter():
+	pass

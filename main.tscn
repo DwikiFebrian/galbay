@@ -81,7 +81,6 @@ text = "1/n"
 [node name="Paneh tengah" type="VBoxContainer" parent="Control/Main layout" unique_id=269468019]
 layout_mode = 2
 size_flags_vertical = 3
-alignment = 1
 
 [node name="Label" type="Label" parent="Control/Main layout/Paneh tengah" unique_id=745623791]
 layout_mode = 2
@@ -91,19 +90,39 @@ text = "Find target!"
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/Main layout" unique_id=1420516572]
+[node name="list" type="HBoxContainer" parent="Control/Main layout" unique_id=1648893675]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="Control/Main layout/VBoxContainer" unique_id=872674999]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Main layout/list" unique_id=1420516572]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Control/Main layout/list/VBoxContainer" unique_id=872674999]
 layout_mode = 2
 text = "List active"
 
-[node name="Paneh bawah" type="ScrollContainer" parent="Control/Main layout/VBoxContainer" unique_id=943112445]
+[node name="Paneh bawah" type="ScrollContainer" parent="Control/Main layout/list/VBoxContainer" unique_id=943112445]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="list nasabah" type="VBoxContainer" parent="Control/Main layout/VBoxContainer/Paneh bawah" unique_id=1084855284]
+[node name="list nasabah" type="VBoxContainer" parent="Control/Main layout/list/VBoxContainer/Paneh bawah" unique_id=1084855284]
+layout_mode = 2
+
+[node name="upgrade" type="VBoxContainer" parent="Control/Main layout/list" unique_id=1064776706]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Control/Main layout/list/upgrade" unique_id=1836321340]
+layout_mode = 2
+text = "Upgrades!"
+
+[node name="scroll upgrade" type="ScrollContainer" parent="Control/Main layout/list/upgrade/Label" unique_id=262782240]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="list upgrade" type="VBoxContainer" parent="Control/Main layout/list/upgrade/Label/scroll upgrade" unique_id=1206199179]
 layout_mode = 2
 
 [node name="Paneh footer" type="HBoxContainer" parent="Control/Main layout" unique_id=487630468]
