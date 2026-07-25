@@ -2,7 +2,8 @@ extends Node2D
 
 @onready var label_uang = $"Control/Main layout/Panel atas/uang"
 @onready var label_turn = $"Control/Main layout/Panel atas/turn"
-@onready var label_boss = $"Control/Main layout/Panel atas/Label"
+@onready var label_boss = $"Control/Main layout/Panel atas/boss"
+@onready var label_setor = $"Control/Main layout/Panel atas/setor"
 @onready var container_draft = $"Control/Main layout/Paneh tengah/Targetlist"
 @onready var container_aktif = $"Control/Main layout/VBoxContainer/Paneh bawah/list nasabah"
 
@@ -11,7 +12,9 @@ var active_row_scene = preload("res://nasabahaktif.tscn")
 
 # state
 var player_cash: int = 2000
-var current_turn: int = 1
+var current_turn: int = 0
+var deadline: int = 12
+var quarter: int = 1
 var max_turn: int = 48
 var boss_goal: int = 2000
 var nasabah_aktif: Array = []
@@ -49,8 +52,11 @@ func _ready() -> void:
 
 func update_ui_header() -> void:
 	label_uang.text = str(player_cash)
-	label_turn.text = "Turn: Week " + str(current_turn) + " / Week " + str(max_turn)
-	label_boss.text = "Boss Goal: $" + str(boss_goal)
+	#label_turn.text = "Turn: Week " + str(current_turn) + " / Week " + str(max_turn)
+	#label_boss.text = "Boss Goal: $" + str(boss_goal)
+	label_setor.text = "Tribute $" + str(boss_goal) + " in " + str(deadline - current_turn) + " week"
+	#label_boss.text = "Tribute $" + str(boss_goal)
+	#label_turn.text = "in " + str(deadline - current_turn) + " week"
 
 # bikin antrean
 func generate_antrean_turn(jumlah: int) -> void:
@@ -64,6 +70,7 @@ func generate_antrean_turn(jumlah: int) -> void:
 			"modal": randi_range(kelas_terpilih["modal_min"], kelas_terpilih["modal_max"]),
 			"cicilan_per_turn": randi_range(kelas_terpilih["return_min"], kelas_terpilih["return_max"]),
 			"peluang_galbay": randf_range(kelas_terpilih["galbay_min"], kelas_terpilih["galbay_max"]),
+			"tenor": 4,
 			"path_gambar": kelas_terpilih["gambar"]
 		}
 		antrean_nasabah.append(data_random) # Masukkan ke dalam antrean
@@ -113,7 +120,36 @@ func proses_tolak_nasabah(kartu: Node) -> void:
 	kartu.queue_free()
 	call_deferred("isi_slot_kosong")
 
-
 func _on_nextweek_pressed() -> void:
 	print("minggu berganti")
 	#bisa kasih code ngitung duit di sini
+	
+	var penghutang = get_node("Control/Main layout/VBoxContainer/Paneh bawah/list nasabah")
+	for nasabah in penghutang.get_children():
+		#var kartu_baru = active_row_scene.instantiate()
+		#player_cash += nasabah["cicilan_per_turn"]
+		#player_cash += nasabah.data["cicilan_per_turn"]
+		nasabah.kurangi_turn()
+	
+	for i in range(len(nasabah_aktif) - 1, -1, -1):
+		var nasabah = nasabah_aktif[i]
+		player_cash += nasabah["cicilan_per_turn"]
+		nasabah["tenor"] -= 1
+		if nasabah["tenor"] == 0:
+			nasabah_aktif.remove_at(i)
+		
+	update_ui_header()
+	
+	current_turn += 1
+	if current_turn % 12 == 0:
+		setor_boss()
+		current_turn = 0
+		quarter += 1
+	
+	update_ui_header()
+	
+func setor_boss():
+	if player_cash < boss_goal:
+		print("Game Over")
+	else:
+		player_cash -= boss_goal

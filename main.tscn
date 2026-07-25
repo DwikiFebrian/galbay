@@ -49,15 +49,20 @@ size_flags_horizontal = 3
 tooltip_text = "Profil"
 texture_normal = ExtResource("2_0xm2m")
 
-[node name="turn" type="Label" parent="Control/Main layout/Panel atas" unique_id=398017445]
+[node name="setor" type="Label" parent="Control/Main layout/Panel atas" unique_id=768408797]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "1/n"
 
-[node name="Label" type="Label" parent="Control/Main layout/Panel atas" unique_id=1603356411]
+[node name="boss" type="Label" parent="Control/Main layout/Panel atas" unique_id=1603356411]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 text = "boss goal"
+
+[node name="turn" type="Label" parent="Control/Main layout/Panel atas" unique_id=398017445]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1/n"
 
 [node name="Paneh tengah" type="VBoxContainer" parent="Control/Main layout" unique_id=269468019]
 layout_mode = 2
