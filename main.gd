@@ -56,11 +56,11 @@ var bonus_tenor: int = 0
 var reduksi_galbay: float = 0.0
 
 # harga upgrade
-var harga_counter_expansion = [40, 75]
-var harga_middle_sucker = [50, 75, 100]
-var harga_high_sucker = [100, 200, 300]
-var harga_doomer_influencer = [30, 67, 100, 200]
-var harga_broken_kneecap = [75, 140]
+var harga_counter_expansion = [30, 60]
+var harga_middle_sucker = [40, 60, 85]
+var harga_high_sucker = [80, 165, 250]
+var harga_doomer_influencer = [30, 67, 100, 180]
+var harga_broken_kneecap = [60, 125]
 
 # level upgrade
 var level_middle_sucker = 0
