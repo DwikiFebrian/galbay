@@ -30,5 +30,11 @@ size_flags_horizontal = 0
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="turn" type="Label" parent="." unique_id=793777522]
+[node name="infokanan" type="VBoxContainer" parent="." unique_id=164995316]
 layout_mode = 2
+alignment = 2
+
+[node name="turn" type="Label" parent="infokanan" unique_id=793777522]
+layout_mode = 2
+horizontal_alignment = 2
+vertical_alignment = 2

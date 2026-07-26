@@ -200,10 +200,10 @@ theme_override_font_sizes/font_size = 20
 text = "Upgrades!"
 horizontal_alignment = 1
 
-[node name="upgrade1" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=825694176]
+[node name="doomer influencer" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=1521715919]
 layout_mode = 2
 
-[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade1" unique_id=1571306548]
+[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/doomer influencer" unique_id=624766120]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 12
@@ -212,40 +212,41 @@ theme_override_font_sizes/bold_italics_font_size = 12
 theme_override_font_sizes/italics_font_size = 12
 theme_override_font_sizes/mono_font_size = 12
 bbcode_enabled = true
-text = "[b]Street Eyes[/b]
-Display [color=green]+1 Sucker[/color] on screen."
+text = "[b]Doomer Influencer Affiliate[/b]
+Masses become more doomed, [color=green]+2 Suckers[/color] come every week."
 fit_content = true
 
-[node name="tombolbeli1" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade1" unique_id=786783359]
+[node name="button" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/doomer influencer" unique_id=93634786]
+custom_minimum_size = Vector2(70, 35)
+layout_mode = 2
+text = "$30"
+
+[node name="counter expansion" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=825694176]
+layout_mode = 2
+
+[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/counter expansion" unique_id=1571306548]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+bbcode_enabled = true
+text = "[b]Counter Expansion[/b]
+Process more suckers at once, display [color=green]+1 Sucker[/color] choice on screen."
+fit_content = true
+
+[node name="button" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/counter expansion" unique_id=786783359]
 custom_minimum_size = Vector2(70, 35)
 layout_mode = 2
 text = "$40"
 
-[node name="upgrade2" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=1709865997]
+[node name="middle sucker" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=460689428]
+visible = false
 layout_mode = 2
 
-[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade2" unique_id=1506040637]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/normal_font_size = 12
-theme_override_font_sizes/bold_font_size = 12
-theme_override_font_sizes/bold_italics_font_size = 12
-theme_override_font_sizes/italics_font_size = 12
-theme_override_font_sizes/mono_font_size = 12
-bbcode_enabled = true
-text = "[b]Squeeze 'Em Dry[/b]
-Base return [color=green]+$1/turn[/color]."
-fit_content = true
-
-[node name="tombolbeli2" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade2" unique_id=1581557817]
-custom_minimum_size = Vector2(70, 35)
-layout_mode = 2
-text = "$50"
-
-[node name="upgrade3" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=1521715919]
-layout_mode = 2
-
-[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade3" unique_id=624766120]
+[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/middle sucker" unique_id=843954866]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 12
@@ -254,19 +255,20 @@ theme_override_font_sizes/bold_italics_font_size = 12
 theme_override_font_sizes/italics_font_size = 12
 theme_override_font_sizes/mono_font_size = 12
 bbcode_enabled = true
-text = "[b]Desperate Masses[/b]
-Target queue [color=green]+2 Suckers[/color]."
+text = "[b]Gambling Ring Partnership[/b]
+Lure [color=green] Middle Class [/color] suckers in, make them appear more often."
 fit_content = true
 
-[node name="tombolbeli3" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade3" unique_id=93634786]
+[node name="middle sucker" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/middle sucker" unique_id=400862609]
 custom_minimum_size = Vector2(70, 35)
 layout_mode = 2
 text = "$50"
 
-[node name="upgrade4" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=41873292]
+[node name="high sucker" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=721438412]
+visible = false
 layout_mode = 2
 
-[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade4" unique_id=1225803541]
+[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/high sucker" unique_id=503643420]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 12
@@ -275,19 +277,20 @@ theme_override_font_sizes/bold_italics_font_size = 12
 theme_override_font_sizes/italics_font_size = 12
 theme_override_font_sizes/mono_font_size = 12
 bbcode_enabled = true
-text = "[b]Debt Trap[/b]
-Loan duration [color=green]+1 Week[/color]."
+text = "[b]Private Wealth Syndicate[/b]
+Lure [color=green] High Class [/color] suckers in, make them appear more often."
 fit_content = true
 
-[node name="tombolbeli4" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade4" unique_id=474643609]
+[node name="high sucker" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/high sucker" unique_id=771542463]
 custom_minimum_size = Vector2(70, 35)
 layout_mode = 2
-text = "$50"
+text = "$100"
 
-[node name="upgrade5" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=1144999481]
+[node name="broken kneecap" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=1144999481]
+visible = false
 layout_mode = 2
 
-[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade5" unique_id=1824002813]
+[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/broken kneecap" unique_id=1824002813]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 12
@@ -297,13 +300,13 @@ theme_override_font_sizes/italics_font_size = 12
 theme_override_font_sizes/mono_font_size = 12
 bbcode_enabled = true
 text = "[b]Broken Kneecaps[/b]
-Default risk [color=green]-3%[/color]."
+A subtle threat goes a long way, halve the [color=green]Galbay rate[/color]."
 fit_content = true
 
-[node name="tombolbeli5" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade5" unique_id=23778035]
+[node name="button" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/broken kneecap" unique_id=23778035]
 custom_minimum_size = Vector2(70, 35)
 layout_mode = 2
-text = "$50"
+text = "$75"
 
 [node name="Paneh footer" type="HBoxContainer" parent="Control/Main layout" unique_id=487630468]
 layout_mode = 2
@@ -320,9 +323,9 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_7mycd")
 theme_override_styles/hover = SubResource("StyleBoxFlat_272bh")
 text = "Next Week!"
 
-[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade1/tombolbeli1" to="." method="_on_tombolbeli_1_pressed"]
-[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade2/tombolbeli2" to="." method="_on_tombolbeli_2_pressed"]
-[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade3/tombolbeli3" to="." method="_on_tombolbeli_3_pressed"]
-[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade4/tombolbeli4" to="." method="_on_tombolbeli_4_pressed"]
-[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade5/tombolbeli5" to="." method="_on_tombolbeli_5_pressed"]
+[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/doomer influencer/button" to="." method="_on_doomer_influencer_pressed"]
+[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/counter expansion/button" to="." method="_on_counter_expansion_pressed"]
+[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/middle sucker/middle sucker" to="." method="_on_middle_sucker_pressed"]
+[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/high sucker/high sucker" to="." method="_on_high_sucker_pressed"]
+[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/broken kneecap/button" to="." method="_on_broken_kneecap_pressed"]
 [connection signal="pressed" from="Control/Main layout/Paneh footer/nextweek" to="." method="_on_nextweek_pressed"]
