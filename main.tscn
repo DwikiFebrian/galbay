@@ -286,11 +286,11 @@ custom_minimum_size = Vector2(70, 35)
 layout_mode = 2
 text = "$100"
 
-[node name="broken kneecap" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=1144999481]
+[node name="broken kneecaps" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=1144999481]
 visible = false
 layout_mode = 2
 
-[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/broken kneecap" unique_id=1824002813]
+[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/broken kneecaps" unique_id=1824002813]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 12
@@ -303,7 +303,7 @@ text = "[b]Broken Kneecaps[/b]
 A subtle threat goes a long way, halve the [color=green]Galbay rate[/color]."
 fit_content = true
 
-[node name="button" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/broken kneecap" unique_id=23778035]
+[node name="button" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/broken kneecaps" unique_id=23778035]
 custom_minimum_size = Vector2(70, 35)
 layout_mode = 2
 text = "$75"
@@ -327,5 +327,5 @@ text = "Next Week!"
 [connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/counter expansion/button" to="." method="_on_counter_expansion_pressed"]
 [connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/middle sucker/middle sucker" to="." method="_on_middle_sucker_pressed"]
 [connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/high sucker/high sucker" to="." method="_on_high_sucker_pressed"]
-[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/broken kneecap/button" to="." method="_on_broken_kneecap_pressed"]
+[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/broken kneecaps/button" to="." method="_on_broken_kneecap_pressed"]
 [connection signal="pressed" from="Control/Main layout/Paneh footer/nextweek" to="." method="_on_nextweek_pressed"]

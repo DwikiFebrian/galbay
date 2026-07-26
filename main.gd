@@ -14,7 +14,7 @@ extends Node2D
 @onready var broken_kneecaps_button = $"Control/Main layout/list/upgrade/MarginContainer/list upgrade/broken kneecaps/button"
 @onready var middle_sucker_upgrades = $"Control/Main layout/list/upgrade/MarginContainer/list upgrade/middle sucker"
 @onready var high_sucker_upgrades = $"Control/Main layout/list/upgrade/MarginContainer/list upgrade/high sucker"
-@onready var broken_kneecaps_upgrades = $"Control/Main layout/list/upgrade/MarginContainer/list upgrade/broken kneecap"
+@onready var broken_kneecaps_upgrades = $"Control/Main layout/list/upgrade/MarginContainer/list upgrade/broken kneecaps"
 
 var nasabah_scene = preload("res://nasabahcards.tscn")
 var active_row_scene = preload("res://nasabahaktif.tscn")
@@ -315,6 +315,7 @@ func _on_doomer_influencer_pressed() -> void:
 		queue_length += 2
 		level_doomer_influencer += 1
 		update_ui_header()
+		doomer_influencer_button.text = "$" + str(harga_doomer_influencer[level_doomer_influencer])
 	else:
 		print("Duit kurang buat upgrade Doomer Influencer!")
 		
@@ -338,6 +339,8 @@ func _on_broken_kneecap_pressed() -> void:
 		player_cash -= harga_broken_kneecap[level_broken_kneecaps]
 		level_broken_kneecaps += 1
 		update_ui_header()
+		
+		broken_kneecaps_button.text = "$" + str(harga_broken_kneecap[level_broken_kneecaps])
 	else:
 		print("Duit kurang buat Upgrade 5!")
 	if level_broken_kneecaps == 2:
