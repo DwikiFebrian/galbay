@@ -9,7 +9,7 @@ extends Node2D
 
 var dialog_lines: Array = [
 	"Listen up! I'm fronting you this seed money.",
-	"Get out there and hook as many targets as you can.",
+	"Get out there and hook as many suckers as you can.",
 	"Squeeze every last cent out of them...",
 	"...and pay me back! Don't make me wait."
 ]

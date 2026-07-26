@@ -38,7 +38,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_smii7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"player",
 "speed": 4.0
 }]
@@ -86,7 +86,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0claw")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idleboss",
 "speed": 4.0
 }, {
@@ -100,7 +100,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_m4rpt")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walkboss",
 "speed": 5.0
 }]

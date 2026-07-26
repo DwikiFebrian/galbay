@@ -18,10 +18,17 @@ layout_mode = 2
 [node name="return" type="Label" parent="infokiri" unique_id=1513008061]
 layout_mode = 2
 
+[node name="galbay" type="Label" parent="infokiri" unique_id=307956012]
+layout_mode = 2
+
+[node name="galbay2" type="Label" parent="infokiri" unique_id=1337843196]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+
 [node name="spacer" type="Control" parent="." unique_id=1675364312]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 8
 
 [node name="turn" type="Label" parent="." unique_id=793777522]
 layout_mode = 2
