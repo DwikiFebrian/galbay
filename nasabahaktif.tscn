@@ -8,18 +8,26 @@ script = ExtResource("1_q6551")
 [node name="avatar" type="TextureRect" parent="." unique_id=1535172053]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
+stretch_mode = 4
 
 [node name="infokiri" type="VBoxContainer" parent="." unique_id=1284700452]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="nama" type="Label" parent="infokiri" unique_id=203507610]
+[node name="nama" type="RichTextLabel" parent="infokiri" unique_id=302646009]
 layout_mode = 2
+bbcode_enabled = true
+fit_content = true
 
-[node name="return" type="Label" parent="infokiri" unique_id=1513008061]
+[node name="return" type="RichTextLabel" parent="infokiri" unique_id=1813569016]
 layout_mode = 2
+bbcode_enabled = true
+fit_content = true
 
-[node name="galbay" type="Label" parent="infokiri" unique_id=307956012]
+[node name="galbay" type="RichTextLabel" parent="infokiri" unique_id=195500298]
 layout_mode = 2
+bbcode_enabled = true
+fit_content = true
 
 [node name="galbay2" type="Label" parent="infokiri" unique_id=1337843196]
 visible = false
@@ -32,9 +40,12 @@ size_flags_vertical = 8
 
 [node name="infokanan" type="VBoxContainer" parent="." unique_id=164995316]
 layout_mode = 2
+size_flags_horizontal = 3
 alignment = 2
 
-[node name="turn" type="Label" parent="infokanan" unique_id=793777522]
+[node name="turn" type="RichTextLabel" parent="infokanan" unique_id=1632159644]
 layout_mode = 2
+bbcode_enabled = true
+fit_content = true
 horizontal_alignment = 2
 vertical_alignment = 2

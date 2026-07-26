@@ -23,13 +23,12 @@ func isi_data(data: Dictionary) -> void:
 		
 	var tampil_peluang_galbay = round(data["peluang_galbay"]*100)/100
 		
-	label_nama.text = "ID: " + str(data["id_nasabah"]) + " | " + str(data["tipe_kelas"])
-	label_return.text = "Payback: +$" + str(data["cicilan_per_turn"]) + "/turn"
-	label_peluang_galbay.text = "Dodging probability: " + str(tampil_peluang_galbay) + " %"
+	label_nama.text = "[b]ID: " + str(data["id_nasabah"]) + "[/b] | " + str(data["tipe_kelas"])
+	label_return.text = "Payback: [color=#33cc33]+$" + str(data["cicilan_per_turn"]) + "/week[/color]"
+	label_peluang_galbay.text = "Galbay Risk: [color=#ffcc00]" + str(tampil_peluang_galbay) + "%[/color]"
 	
 	if data.has("tenor"):
 		sisa_tenor = data["tenor"]
-		
 	update_teks_turn()
 
 func isi_data_no_galbay(data: Dictionary) -> void:
@@ -39,9 +38,8 @@ func isi_data_no_galbay(data: Dictionary) -> void:
 	if data.has("path_gambar"):
 		avatar.texture = load(data["path_gambar"])
 		
-	label_nama.text = "ID: " + str(data["id_nasabah"]) + " | " + str(data["tipe_kelas"])
-	label_return.text = "Payback: +$" + str(data["cicilan_per_turn"]) + "/turn"
-	#label_peluang_galbay.text = "Dodging probability: " + str(tampil_peluang_galbay) + " %"
+	label_nama.text = "[b]ID: " + str(data["id_nasabah"]) + "[/b] | " + str(data["tipe_kelas"])
+	label_return.text = "Payback: [color=#33cc33]+$" + str(data["cicilan_per_turn"]) + "/week[/color]"
 	
 	if data.has("tenor"):
 		sisa_tenor = data["tenor"]
@@ -49,12 +47,10 @@ func isi_data_no_galbay(data: Dictionary) -> void:
 	update_teks_turn()
 
 func update_teks_turn() -> void:
-	#label_turn.text = str(sisa_tenor) + " installments left."
 	if status_galbay:
-		label_turn.text = "LOST"
-		label_turn.add_theme_color_override("font_color", Color(1, 0, 0)) 
+		label_turn.text = "[b][color=#ff3333]LOST (GALBAY)[/color][/b]"
 	else:
-		label_turn.text = "Sisa: " + str(sisa_tenor) + " Turn"
+		label_turn.text = "[b]" + str(sisa_tenor) + "[/b] weeks left"
 
 func kurangi_turn() -> void:
 	if status_galbay:
@@ -67,8 +63,7 @@ func kurangi_turn() -> void:
 		status_galbay = true
 		data_nasabah["is_galbay"] = true 
 		
-		label_return.text = "GALBAY! ($0)"
-		label_return.add_theme_color_override("font_color", Color(1, 0, 0))
+		label_return.text = "[b][color=#ff3333]GALBAY! ($0)[/color][/b]"
 		update_teks_turn()
 		return 
 	
@@ -81,19 +76,8 @@ func kurangi_turn_no_galbay() -> void:
 	if status_galbay:
 		queue_free() 
 		return
-		
-	#var roll_dadu = randf() 
-	#
-	#if roll_dadu <= data_nasabah["peluang_galbay"]:
-		#status_galbay = true
-		#data_nasabah["is_galbay"] = true 
-		#
-		#label_return.text = "GALBAY! ($0)"
-		#label_return.add_theme_color_override("font_color", Color(1, 0, 0))
-		#update_teks_turn()
-		#return 
 	
 	sisa_tenor -= 1
 	update_teks_turn()
 	if sisa_tenor <= 0:
-		queue_free() 
+		queue_free()

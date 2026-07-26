@@ -24,7 +24,7 @@ var nasabah_scene = preload("res://nasabahcards.tscn")
 var active_row_scene = preload("res://nasabahaktif.tscn")
 
 # state
-var player_cash: int = 100
+var player_cash: int = 10000
 var current_turn: int = 0
 var deadline: int = 12
 var quarter: int = 0
@@ -210,9 +210,6 @@ func _on_nextweek_pressed() -> void:
 	
 	var penghutang = get_node("Control/Main layout/list/VBoxContainer/Paneh bawah/PanelContainer/list nasabah")
 	for nasabah in penghutang.get_children():
-		#var kartu_baru = active_row_scene.instantiate()
-		#player_cash += nasabah["cicilan_per_turn"]
-		#player_cash += nasabah.data["cicilan_per_turn"]
 		if quarter <= 1:
 			nasabah.kurangi_turn_no_galbay()
 		else:
@@ -239,6 +236,40 @@ func _on_nextweek_pressed() -> void:
 	
 	update_ui_header()
 	generate_antrean_turn(queue_length)
+	
+	var sisa_minggu = deadline - current_turn
+	var float_lbl = Label.new()
+	
+	if sisa_minggu == 1:
+		float_lbl.text = "LAST WEEK!"
+	else:
+		float_lbl.text = str(sisa_minggu) + " WEEKS LEFT!"
+
+	float_lbl.add_theme_font_size_override("font_size", 72)
+	
+	if sisa_minggu <= 3:
+		float_lbl.modulate = Color(1.0, 0.2, 0.2) # Merah bahaya
+	else:
+		float_lbl.modulate = Color(1.0, 0.7, 0.1) # Kuning
+
+	float_lbl.custom_minimum_size = Vector2(400, 100)
+	float_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	float_lbl.z_index = 100 
+		
+	add_child(float_lbl)
+
+	var screen_size = get_viewport_rect().size
+	var center_x = (screen_size.x / 2.0) - (float_lbl.custom_minimum_size.x / 2.0)
+	var center_y = (screen_size.y / 2.0)
+	
+	float_lbl.global_position = Vector2(center_x, center_y)
+	
+	var tw = create_tween()
+	tw.set_parallel(true)
+	tw.tween_property(float_lbl, "global_position:y", float_lbl.global_position.y - 100, 1.2).set_trans(Tween.TRANS_SINE)
+	tw.tween_property(float_lbl, "modulate:a", 0.0, 1.2)
+	
+	tw.chain().tween_callback(float_lbl.queue_free)
 	
 func setor_boss():
 	if player_cash < boss_goal:
@@ -310,11 +341,12 @@ func _on_middle_sucker_pressed() -> void:
 		weight[1] += 4
 		level_middle_sucker += 1
 		update_ui_header()
-		middle_sucker_button.text ="$" +  str(harga_middle_sucker[level_middle_sucker])
 	else:
 		print("Duit kurang buat upgrade Middle Sucker")
 	if level_middle_sucker == 2:
 		middle_sucker_button.disabled = true
+	else:
+		middle_sucker_button.text ="$" +  str(harga_middle_sucker[level_middle_sucker])
 		
 func _on_high_sucker_pressed() -> void:
 	if player_cash >= harga_high_sucker[level_high_sucker]:
@@ -322,11 +354,12 @@ func _on_high_sucker_pressed() -> void:
 		weight[1] += 5
 		level_high_sucker += 1
 		update_ui_header()
-		high_sucker_button.text ="$" +  str(harga_high_sucker[level_high_sucker])
 	else:
 		print("Duit kurang buat upgrade High Sucker")
 	if level_high_sucker == 3:
 		high_sucker_button.disabled = true
+	else:
+		high_sucker_button.text ="$" +  str(harga_high_sucker[level_high_sucker])
 
 func _on_counter_expansion_pressed() -> void:
 	if player_cash >= harga_counter_expansion[level_counter_expansion_sucker]:
@@ -336,13 +369,13 @@ func _on_counter_expansion_pressed() -> void:
 		
 		update_ui_header()
 		isi_slot_kosong() 
-		
-		counter_expansion_button.text = "$" + str(harga_counter_expansion[level_counter_expansion_sucker])
 	else:
 		print("Duit kurang buat upgrade Counter Expansion!")
 	
 	if level_counter_expansion_sucker == 2:
 		counter_expansion_button.disabled = true
+	else:
+		counter_expansion_button.text = "$" + str(harga_counter_expansion[level_counter_expansion_sucker])
 
 
 #func _on_tombolbeli_2_pressed() -> void:
@@ -361,12 +394,13 @@ func _on_doomer_influencer_pressed() -> void:
 		queue_length += 2
 		level_doomer_influencer += 1
 		update_ui_header()
-		doomer_influencer_button.text = "$" + str(harga_doomer_influencer[level_doomer_influencer])
 	else:
 		print("Duit kurang buat upgrade Doomer Influencer!")
 		
 	if level_doomer_influencer == 4:
 		doomer_influencer_button.disabled = true
+	else:
+		doomer_influencer_button.text = "$" + str(harga_doomer_influencer[level_doomer_influencer])
 		
 
 
@@ -386,11 +420,12 @@ func _on_broken_kneecap_pressed() -> void:
 		level_broken_kneecaps += 1
 		update_ui_header()
 		
-		broken_kneecaps_button.text = "$" + str(harga_broken_kneecap[level_broken_kneecaps])
 	else:
 		print("Duit kurang buat Upgrade 5!")
 	if level_broken_kneecaps == 2:
 		broken_kneecaps_button.disabled = true
+	else:
+		broken_kneecaps_button.text = "$" + str(harga_broken_kneecap[level_broken_kneecaps])
 
 
 func _on_button_restart_pressed() -> void:
