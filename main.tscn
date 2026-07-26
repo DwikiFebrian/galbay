@@ -2,7 +2,11 @@
 
 [ext_resource type="Script" uid="uid://dy5qrj8r5w056" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Texture2D" uid="uid://ni10rnjmmcud" path="res://sprite/dollar.png" id="2_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://bgu8bvsla0uem" path="res://sprite/dialog.png" id="2_272bh"]
 [ext_resource type="Texture2D" uid="uid://bhotri2n8u45d" path="res://sprite/profil.png" id="3_lquwl"]
+[ext_resource type="AudioStream" uid="uid://g4u51rpkslf" path="res://sound/cant afford.wav" id="4_1bvp3"]
+[ext_resource type="AudioStream" uid="uid://clt8nnxdvm7ae" path="res://sound/264762__farpro__guiclick.ogg" id="5_lquwl"]
+[ext_resource type="AudioStream" uid="uid://b0mvjwx27rwod" path="res://sound/reject.wav" id="6_7mycd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
 content_margin_left = 8.0
@@ -44,6 +48,35 @@ bg_color = Color(0.9019608, 0.64705884, 0, 1)
 
 [node name="Main" type="Node2D" unique_id=1255116696]
 script = ExtResource("1_h2yge")
+
+[node name="ui_layer" type="CanvasLayer" parent="." unique_id=656030581]
+visible = false
+
+[node name="dialog box" type="Control" parent="ui_layer" unique_id=827650579]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="ui_layer/dialog box" unique_id=1438297454]
+layout_mode = 0
+offset_left = 326.0
+offset_top = 423.0
+offset_right = 882.0
+offset_bottom = 545.0
+texture = ExtResource("2_272bh")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ui_layer/dialog box" unique_id=1665834811]
+layout_mode = 0
+offset_left = 347.0
+offset_top = 438.0
+offset_right = 855.0
+offset_bottom = 522.0
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
 
 [node name="Control" type="Control" parent="." unique_id=1464288024]
 layout_mode = 3
@@ -148,6 +181,15 @@ text = "Find Target!"
 layout_mode = 2
 theme_override_constants/separation = 16
 
+[node name="kurang duid" type="AudioStreamPlayer" parent="Control/Main layout/PanelContainer/Paneh tengah" unique_id=525054853]
+stream = ExtResource("4_1bvp3")
+
+[node name="accept" type="AudioStreamPlayer" parent="Control/Main layout/PanelContainer/Paneh tengah" unique_id=1696712605]
+stream = ExtResource("5_lquwl")
+
+[node name="reject" type="AudioStreamPlayer" parent="Control/Main layout/PanelContainer/Paneh tengah" unique_id=1231504703]
+stream = ExtResource("6_7mycd")
+
 [node name="HSeparator2" type="HSeparator" parent="Control/Main layout" unique_id=1946077989]
 layout_mode = 2
 theme_override_constants/separation = 4
@@ -241,6 +283,9 @@ fit_content = true
 custom_minimum_size = Vector2(70, 35)
 layout_mode = 2
 text = "$40"
+
+[node name="kurang duid" type="AudioStreamPlayer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/counter expansion/button" unique_id=847105112]
+stream = ExtResource("4_1bvp3")
 
 [node name="middle sucker" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=460689428]
 visible = false

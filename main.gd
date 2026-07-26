@@ -16,6 +16,17 @@ extends Node2D
 @onready var high_sucker_upgrades = $"Control/Main layout/list/upgrade/MarginContainer/list upgrade/high sucker"
 @onready var broken_kneecaps_upgrades = $"Control/Main layout/list/upgrade/MarginContainer/list upgrade/broken kneecaps"
 
+@onready var kurang_duid_audio = $"Control/Main layout/PanelContainer/Paneh tengah/kurang duid"
+@onready var accept_audio = $"Control/Main layout/PanelContainer/Paneh tengah/accept"
+@onready var reject_audio = $"Control/Main layout/PanelContainer/Paneh tengah/reject"
+
+@onready var kd_counter_audio = $"Control/Main layout/list/upgrade/MarginContainer/list upgrade/counter expansion/button/kurang duid"
+
+# cutscene
+# Tambahkan referensi ke bungkus utama dialog box buat di-hide/show
+@onready var dialog_box = $"ui_layer/dialog box" 
+@onready var dialog_text = $"ui_layer/dialog box/RichTextLabel"
+
 var nasabah_scene = preload("res://nasabahcards.tscn")
 var active_row_scene = preload("res://nasabahaktif.tscn")
 
@@ -25,7 +36,7 @@ var current_turn: int = 0
 var deadline: int = 12
 var quarter: int = 0
 var max_turn: int = 48
-var target = [200, 400, 900, 1500]
+var target = [150, 300, 600, 1000]
 var boss_goal: int = target[0]
 var nasabah_aktif: Array = []
 var antrean_nasabah: Array = [] # buat nyimpen 12 calon nasabah per turn
@@ -40,11 +51,6 @@ var bonus_tenor: int = 0
 var reduksi_galbay: float = 0.0
 
 # harga upgrade
-var harga_up1: int = 50
-var harga_up2: int = 50
-var harga_up3: int = 50
-var harga_up4: int = 50
-var harga_up5: int = 50
 var harga_counter_expansion = [40, 75]
 var harga_middle_sucker = [50, 75, 100]
 var harga_high_sucker = [100, 200, 300]
@@ -63,7 +69,7 @@ var template_kelas = [
 	{
 		"tipe": "Low Income",
 		"modal_min": 10, "modal_max": 25,
-		"bunga_min": 0.15, "bunga_max": 0.25,
+		"bunga_min": 0.30, "bunga_max": 0.50,
 		"return_min": 4, "return_max": 7,
 		"galbay_min": 0.10, "galbay_max": 0.20,
 		"gambar": [
@@ -81,7 +87,7 @@ var template_kelas = [
 		"tipe": "Middle Class",
 		"modal_min": 40, "modal_max": 80,
 		"return_min": 10, "return_max": 18,
-		"bunga_min": 0.10, "bunga_max": 0.30,
+		"bunga_min": 0.15, "bunga_max": 0.35,
 		"galbay_min": 0.07, "galbay_max": 0.15,
 		"gambar": [
 			"res://sprite/middle1.png",
@@ -95,7 +101,7 @@ var template_kelas = [
 		"tipe": "High Income",
 		"modal_min": 100, "modal_max": 200,
 		"return_min": 25, "return_max": 40,
-		"bunga_min": 0.10, "bunga_max": 0.35,
+		"bunga_min": 0.10, "bunga_max": 0.20,
 		"galbay_min": 0.05, "galbay_max": 0.10,
 		"gambar": [
 			"res://sprite/high1.png",
@@ -193,12 +199,15 @@ func proses_terima_nasabah(kartu: Node, data: Dictionary) -> void:
 		
 		kartu.queue_free()
 		
+		accept_audio.play()
 		call_deferred("isi_slot_kosong")
 	else:
 		print("duit kurang")
+		kurang_duid_audio.play()
 
 func proses_tolak_nasabah(kartu: Node) -> void:
 	kartu.queue_free()
+	reject_audio.play()
 	call_deferred("isi_slot_kosong")
 
 func _on_nextweek_pressed() -> void:
@@ -239,6 +248,7 @@ func _on_nextweek_pressed() -> void:
 func setor_boss():
 	if player_cash < boss_goal:
 		print("Game Over")
+		game_over()
 	else:
 		player_cash -= boss_goal
 		
@@ -253,6 +263,9 @@ func new_quarter():
 		elif quarter == 2:
 			broken_kneecaps_upgrades.visible = true
 		
+func game_over():
+	pass
+	
 func end_game():
 	pass
 
@@ -266,6 +279,7 @@ func _on_middle_sucker_pressed() -> void:
 		update_ui_header()
 		middle_sucker_button.text ="$" +  str(harga_middle_sucker[level_middle_sucker])
 	else:
+		kurang_duid_audio.play()
 		print("Duit kurang buat upgrade Middle Sucker")
 	if level_middle_sucker == 2:
 		middle_sucker_button.disabled = true
@@ -278,9 +292,10 @@ func _on_high_sucker_pressed() -> void:
 		update_ui_header()
 		high_sucker_button.text ="$" +  str(harga_high_sucker[level_high_sucker])
 	else:
+		kurang_duid_audio.play()
 		print("Duit kurang buat upgrade High Sucker")
-	if level_middle_sucker == 3:
-		middle_sucker_button.disabled = true
+	if level_high_sucker == 3:
+		high_sucker_button.disabled = true
 
 func _on_counter_expansion_pressed() -> void:
 	if player_cash >= harga_counter_expansion[level_counter_expansion_sucker]:
@@ -290,13 +305,15 @@ func _on_counter_expansion_pressed() -> void:
 		
 		update_ui_header()
 		isi_slot_kosong() 
-		
-		counter_expansion_button.text = "$" + str(harga_counter_expansion[level_counter_expansion_sucker])
 	else:
+		kurang_duid_audio.play()
 		print("Duit kurang buat upgrade Counter Expansion!")
 	
 	if level_counter_expansion_sucker == 2:
 		counter_expansion_button.disabled = true
+		counter_expansion_button.text = "Sold"
+	else:
+		counter_expansion_button.text = "$" + str(harga_counter_expansion[level_counter_expansion_sucker])
 
 
 #func _on_tombolbeli_2_pressed() -> void:
@@ -317,6 +334,7 @@ func _on_doomer_influencer_pressed() -> void:
 		update_ui_header()
 		doomer_influencer_button.text = "$" + str(harga_doomer_influencer[level_doomer_influencer])
 	else:
+		kurang_duid_audio.play()
 		print("Duit kurang buat upgrade Doomer Influencer!")
 		
 	if level_doomer_influencer == 4:
@@ -342,6 +360,60 @@ func _on_broken_kneecap_pressed() -> void:
 		
 		broken_kneecaps_button.text = "$" + str(harga_broken_kneecap[level_broken_kneecaps])
 	else:
+		kurang_duid_audio.play()
 		print("Duit kurang buat Upgrade 5!")
 	if level_broken_kneecaps == 2:
 		broken_kneecaps_button.disabled = true
+
+func tutorial():
+	pass
+
+var dialog_lines: Array = []
+
+var current_line: int = 0
+var tween: Tween 
+
+var is_dialog_active: bool = false 
+
+func start_dialog(lines: Array[String]) -> void:
+	if lines.is_empty():
+		return
+		
+	dialog_lines = lines
+	current_line = 0
+	is_dialog_active = true
+	
+	show() # Make the dialogue box visible
+	tampilkan_dialog()
+
+func tampilkan_dialog() -> void:
+	if current_line < dialog_lines.size():
+		dialog_text.text = dialog_lines[current_line]
+		dialog_text.visible_ratio = 0.0 
+		
+		# Cancel previous tween if it exists before making a new one
+		if tween and tween.is_running():
+			tween.kill()
+			
+		tween = get_tree().create_tween()
+		var durasi_ngetik = dialog_lines[current_line].length() * 0.05
+		tween.tween_property(dialog_text, "visible_ratio", 1.0, durasi_ngetik)
+	else:
+		# Hide and reset when all lines are finished
+		is_dialog_active = false
+		hide()
+
+func _input(event: InputEvent) -> void:
+	if not is_dialog_active:
+		return
+		
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		lanjut_dialog()
+
+func lanjut_dialog() -> void:
+	if tween and tween.is_running():
+		tween.kill()
+		dialog_text.visible_ratio = 1.0
+	else:
+		current_line += 1
+		tampilkan_dialog()

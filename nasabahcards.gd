@@ -8,6 +8,7 @@ extends VBoxContainer
 @onready var btn_reject = $HBoxContainer/reject
 @onready var btn_accept = $HBoxContainer/accept
 
+
 var data_nasabah: Dictionary
 
 signal nasabah_diterima(kartu_node: Node, data: Dictionary)
