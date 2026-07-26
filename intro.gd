@@ -56,7 +56,12 @@ func tampilkan_dialog() -> void:
 		var durasi_ngetik = dialog_lines[current_line].length() * 0.05
 		tween.tween_property(dialog_text, "visible_ratio", 1.0, durasi_ngetik)
 	else:
-		get_tree().change_scene_to_file("res://main.tscn")
+		is_dialog_active = false
+		
+		var fade_tween = get_tree().create_tween()
+		fade_tween.tween_property(self, "modulate:a", 0.0, 1.5)
+		
+		fade_tween.tween_callback(func(): get_tree().change_scene_to_file("res://main.tscn"))
 
 func _input(event: InputEvent) -> void:
 	if not is_dialog_active:
