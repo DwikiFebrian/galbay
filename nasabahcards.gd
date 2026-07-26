@@ -8,6 +8,7 @@ extends VBoxContainer
 @onready var btn_reject = $HBoxContainer/reject
 @onready var btn_accept = $HBoxContainer/accept
 
+
 var data_nasabah: Dictionary
 
 signal nasabah_diterima(kartu_node: Node, data: Dictionary)
@@ -20,10 +21,10 @@ func isi_data(data: Dictionary) -> void:
 	data_nasabah = data 
 
 	label_nama_kelas.text = "ID: " + str(data["id_nasabah"]) + " | " + str(data["tipe_kelas"])
-	label_keuntungan.text = "Modal: $" + str(data["modal"]) + "  ->  Return: +$" + str(data["cicilan_per_turn"]) + "/turn"
+	label_keuntungan.text = "Capital: $" + str(data["modal"]) + "  ->  Payback: +$" + str(data["cicilan_per_turn"]) + "/week"
 
 	var persen_galbay = int(data["peluang_galbay"] * 100)
-	label_probabilitas.text = "Risiko Galbay: " + str(persen_galbay) + "%"
+	label_probabilitas.text = "Galbay Risk: " + str(persen_galbay) + "%"
 	
 	if data.has("path_gambar"):
 		foto_profil.texture = load(data["path_gambar"])
@@ -32,10 +33,10 @@ func isi_data_no_galbay(data: Dictionary) -> void:
 	data_nasabah = data 
 
 	label_nama_kelas.text = "ID: " + str(data["id_nasabah"]) + " | " + str(data["tipe_kelas"])
-	label_keuntungan.text = "Modal: $" + str(data["modal"]) + "  ->  Return: +$" + str(data["cicilan_per_turn"]) + "/week"
+	label_keuntungan.text = "Capital: $" + str(data["modal"]) + "  ->  Payback: +$" + str(data["cicilan_per_turn"]) + "/week"
 
 	#var persen_galbay = int(data["peluang_galbay"] * 100)
-	#label_probabilitas.text = "Risiko Galbay: " + str(persen_galbay) + "%"
+	#label_probabilitas.text = "Galbay Risk: " + str(persen_galbay) + "%"
 	
 	if data.has("path_gambar"):
 		foto_profil.texture = load(data["path_gambar"])
