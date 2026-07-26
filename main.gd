@@ -45,7 +45,7 @@ var template_kelas = [
 		"modal_min": 10, "modal_max": 25,
 		"bunga_min": 0.15, "bunga_max": 0.25,
 		"return_min": 4, "return_max": 7,
-		"galbay_min": 0.15, "galbay_max": 0.25,
+		"galbay_min": 0.07, "galbay_max": 0.15,
 		"gambar": [
 			"res://sprite/low1.png", 
 			"res://sprite/low2.png", 
@@ -59,7 +59,7 @@ var template_kelas = [
 	,
 	{
 		"tipe": "Middle Class",
-		"modal_min": 30, "modal_max": 60,
+		"modal_min": 40, "modal_max": 80,
 		"return_min": 10, "return_max": 18,
 		"bunga_min": 0.10, "bunga_max": 0.30,
 		"galbay_min": 0.05, "galbay_max": 0.10,
@@ -73,9 +73,9 @@ var template_kelas = [
 	},
 	{
 		"tipe": "High Income",
-		"modal_min": 80, "modal_max": 150,
+		"modal_min": 100, "modal_max": 200,
 		"return_min": 25, "return_max": 40,
-		"bunga_min": 0.05, "bunga_max": 0.35,
+		"bunga_min": 0.10, "bunga_max": 0.35,
 		"galbay_min": 0.01, "galbay_max": 0.05,
 		"gambar": [
 			"res://sprite/high1.png",
@@ -145,7 +145,7 @@ func isi_slot_kosong() -> void:
 		kartu_baru.nasabah_ditolak.connect(proses_tolak_nasabah)
 		
 		container_draft.add_child(kartu_baru)
-		if quarter == 1:
+		if quarter <= 1:
 			kartu_baru.isi_data_no_galbay(data_next)
 		else:
 			kartu_baru.isi_data(data_next)
