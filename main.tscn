@@ -4,15 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://ni10rnjmmcud" path="res://sprite/dollar.png" id="2_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://bgu8bvsla0uem" path="res://sprite/dialog.png" id="2_272bh"]
 [ext_resource type="Texture2D" uid="uid://bhotri2n8u45d" path="res://sprite/profil.png" id="3_lquwl"]
-<<<<<<< HEAD
+[ext_resource type="AudioStream" uid="uid://g4u51rpkslf" path="res://sound/cant afford.wav" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://dxukc87t54yjl" path="res://sprite/bganim.png" id="4_7mycd"]
 [ext_resource type="Texture2D" uid="uid://cike325l73sbd" path="res://sprite/playerwin.png" id="5_272bh"]
-[ext_resource type="Texture2D" uid="uid://bldppm25jnpbp" path="res://sprite/playerlose.png" id="6_5vw27"]
-=======
-[ext_resource type="AudioStream" uid="uid://g4u51rpkslf" path="res://sound/cant afford.wav" id="4_1bvp3"]
 [ext_resource type="AudioStream" uid="uid://clt8nnxdvm7ae" path="res://sound/264762__farpro__guiclick.ogg" id="5_lquwl"]
+[ext_resource type="Texture2D" uid="uid://bldppm25jnpbp" path="res://sprite/playerlose.png" id="6_5vw27"]
 [ext_resource type="AudioStream" uid="uid://b0mvjwx27rwod" path="res://sound/reject.wav" id="6_7mycd"]
->>>>>>> simple-prototype
+[ext_resource type="Texture2D" uid="uid://df5bsiquyqhdk" path="res://sprite/babi1.png" id="11_efxa6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
 content_margin_left = 8.0
@@ -76,7 +74,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_efxa6")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -105,7 +103,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vivmo")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 4.0
 }]
@@ -135,35 +133,6 @@ corner_radius_bottom_left = 8
 
 [node name="Main" type="Node2D" unique_id=1255116696]
 script = ExtResource("1_h2yge")
-
-[node name="ui_layer" type="CanvasLayer" parent="." unique_id=656030581]
-visible = false
-
-[node name="dialog box" type="Control" parent="ui_layer" unique_id=827650579]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="TextureRect" type="TextureRect" parent="ui_layer/dialog box" unique_id=1438297454]
-layout_mode = 0
-offset_left = 326.0
-offset_top = 423.0
-offset_right = 882.0
-offset_bottom = 545.0
-texture = ExtResource("2_272bh")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="ui_layer/dialog box" unique_id=1665834811]
-layout_mode = 0
-offset_left = 347.0
-offset_top = 438.0
-offset_right = 855.0
-offset_bottom = 522.0
-theme_override_font_sizes/normal_font_size = 32
-theme_override_font_sizes/bold_font_size = 32
-theme_override_font_sizes/bold_italics_font_size = 32
-theme_override_font_sizes/italics_font_size = 32
-theme_override_font_sizes/mono_font_size = 32
 
 [node name="Control" type="Control" parent="." unique_id=1464288024]
 layout_mode = 3
@@ -533,6 +502,42 @@ theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxFlat_5vw27")
 theme_override_styles/hover = SubResource("StyleBoxFlat_kek77")
 text = "FIND NEW SUCKERS"
+
+[node name="ui_layer" type="CanvasLayer" parent="." unique_id=656030581]
+
+[node name="dialog box" type="Control" parent="ui_layer" unique_id=827650579]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="ui_layer/dialog box" unique_id=1438297454]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 423.0
+offset_right = 973.0
+offset_bottom = 545.0
+texture = ExtResource("2_272bh")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="ui_layer/dialog box" unique_id=1665834811]
+layout_mode = 0
+offset_left = 283.0
+offset_top = 438.0
+offset_right = 949.0
+offset_bottom = 522.0
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+
+[node name="babi" type="Sprite2D" parent="ui_layer" unique_id=661199884]
+visible = false
+top_level = true
+position = Vector2(141, 463)
+scale = Vector2(4.607692, 4.82653)
+texture = ExtResource("11_efxa6")
+flip_h = true
 
 [connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/doomer influencer/button" to="." method="_on_doomer_influencer_pressed"]
 [connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/counter expansion/button" to="." method="_on_counter_expansion_pressed"]

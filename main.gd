@@ -28,14 +28,23 @@ extends Node2D
 
 # cutscene
 # Tambahkan referensi ke bungkus utama dialog box buat di-hide/show
+@onready var ui_layer = $ui_layer
 @onready var dialog_box = $"ui_layer/dialog box" 
 @onready var dialog_text = $"ui_layer/dialog box/RichTextLabel"
+@onready var gambar_babi = $ui_layer/babi
 
+var tween: Tween 
 var nasabah_scene = preload("res://nasabahcards.tscn")
 var active_row_scene = preload("res://nasabahaktif.tscn")
 
+# dialog
+var dialog_lines: Array = []
+var current_line: int = 0
+
+var is_dialog_active: bool = false 
+
 # state
-var player_cash: int = 100
+var player_cash: int = 10000
 var current_turn: int = 0
 var deadline: int = 12
 var quarter: int = 0
@@ -118,6 +127,7 @@ var template_kelas = [
 
 func _ready() -> void:
 	update_ui_header()
+	tutorial()
 	# bikin 12 antrean
 	generate_antrean_turn(queue_length)
 
@@ -219,9 +229,6 @@ func _on_nextweek_pressed() -> void:
 	
 	var penghutang = get_node("Control/Main layout/list/VBoxContainer/Paneh bawah/PanelContainer/list nasabah")
 	for nasabah in penghutang.get_children():
-		#var kartu_baru = active_row_scene.instantiate()
-		#player_cash += nasabah["cicilan_per_turn"]
-		#player_cash += nasabah.data["cicilan_per_turn"]
 		if quarter <= 1:
 			nasabah.kurangi_turn_no_galbay()
 		else:
@@ -249,31 +256,42 @@ func _on_nextweek_pressed() -> void:
 	update_ui_header()
 	generate_antrean_turn(queue_length)
 	
+	var sisa_minggu = deadline - current_turn
+	var float_lbl = Label.new()
+	
+	if sisa_minggu == 1:
+		float_lbl.text = "LAST WEEK!"
+	else:
+		float_lbl.text = str(sisa_minggu) + " WEEKS LEFT!"
+
+	float_lbl.add_theme_font_size_override("font_size", 72)
+	
+	if sisa_minggu <= 3:
+		float_lbl.modulate = Color(1.0, 0.2, 0.2) # Merah bahaya
+	else:
+		float_lbl.modulate = Color(1.0, 0.7, 0.1) # Kuning
+
+	float_lbl.custom_minimum_size = Vector2(400, 100)
+	float_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	float_lbl.z_index = 100 
+		
+	add_child(float_lbl)
+
+	var screen_size = get_viewport_rect().size
+	var center_x = (screen_size.x / 2.0) - (float_lbl.custom_minimum_size.x / 2.0)
+	var center_y = (screen_size.y / 2.0)
+	
+	float_lbl.global_position = Vector2(center_x, center_y)
+	
+	var tw = create_tween()
+	tw.set_parallel(true)
+	tw.tween_property(float_lbl, "global_position:y", float_lbl.global_position.y - 100, 1.2).set_trans(Tween.TRANS_SINE)
+	tw.tween_property(float_lbl, "modulate:a", 0.0, 1.2)
+	
+	tw.chain().tween_callback(float_lbl.queue_free)
+	
 func setor_boss():
 	if player_cash < boss_goal:
-		$Control/EngGameLayer.visible = true
-		anim_menang.visible = false
-		anim_kalah.visible = true
-		anim_kalah.play("default") 
-		
-		label_judul.text = "[center][b][color=#ff3333]YOU'RE THE SUCKER NOW.[/color][/b][/center]"
-		label_skor.text = "[center][b]Failed to pay the $" + str(boss_goal) + " tribute.[/b]\nYou couldn't bleed those suckers dry, [b]so the Boss is gonna bleed YOU instead.[/b]\n\n[b][All assets seized][/b][/center]"
-		
-		var ui_container = $Control/EngGameLayer/UIContainer
-		var background_gelap = $Control/EngGameLayer/ColorRect
-		
-		ui_container.modulate.a = 0.0
-		background_gelap.color.a = 0.0
-		anim_kalah.modulate.a = 0.0 
-
-		var tween = create_tween()
-		tween.set_parallel(true) 
-		tween.tween_property(background_gelap, "color:a", 0.8, 1.5) 
-		tween.tween_property(ui_container, "modulate:a", 1.0, 1.5) 
-		tween.tween_property(anim_kalah, "modulate:a", 1.0, 1.5)   
-		
-		$"Control/Main layout/Paneh footer/nextweek".disabled = true
-		print("Game Over")
 		game_over()
 	else:
 		player_cash -= boss_goal
@@ -286,11 +304,46 @@ func new_quarter():
 		if quarter == 1:
 			middle_sucker_upgrades.visible = true
 			high_sucker_upgrades.visible = true
+			var dialog_lines_q2: Array[String] = ["These broke suckers only bring in chump change.", 
+			"Set up a Gambling Ring Partnership to lure in bigger fish,", 
+			"those naive folks who think they can double their money."]
+			start_dialog(dialog_lines_q2)
 		elif quarter == 2:
 			broken_kneecaps_upgrades.visible = true
+			var dialog_lines_q3: Array[String] = ["Business was good, but the street has changed.", 
+			"Some suckers figured out they can just run away with your money and stop paying back.", 
+			"We call it Galbay."]
+			start_dialog(dialog_lines_q3)
+		elif quarter == 3:
+			var dialog_lines_q4: Array[String] = ["Soon, you’ll see if you’ve actually got what it takes to be a big shot.", "Now is the moment that separates the players from the suckers."]
+			start_dialog(dialog_lines_q4)
 		
 func game_over():
-	pass
+	$Control/EngGameLayer.visible = true
+	anim_menang.visible = false
+	anim_kalah.visible = true
+	anim_kalah.play("default") 
+	
+	label_judul.text = "[center][b][color=#ff3333]YOU'RE THE SUCKER NOW.[/color][/b][/center]"
+	label_skor.text = "[center][b]Failed to pay the $" + str(boss_goal) + " tribute.[/b]\nYou couldn't bleed those suckers dry, [b]so the Boss is gonna bleed YOU instead.[/b]\n\n[b][All assets seized][/b][/center]"
+	
+	var ui_container = $Control/EngGameLayer/UIContainer
+	var background_gelap = $Control/EngGameLayer/ColorRect
+	
+	ui_container.modulate.a = 0.0
+	background_gelap.color.a = 0.0
+	anim_kalah.modulate.a = 0.0 
+
+	if tween and tween.is_running():
+		tween.kill()
+	tween = get_tree().create_tween()
+	tween.set_parallel(true) 
+	tween.tween_property(background_gelap, "color:a", 0.8, 1.5) 
+	tween.tween_property(ui_container, "modulate:a", 1.0, 1.5) 
+	tween.tween_property(anim_kalah, "modulate:a", 1.0, 1.5)   
+	
+	$"Control/Main layout/Paneh footer/nextweek".disabled = true
+	print("Game Over")
 	
 func end_game():
 	$Control/EngGameLayer.visible = true
@@ -308,7 +361,9 @@ func end_game():
 	background_gelap.color.a = 0.0
 	anim_menang.modulate.a = 0.0 
 
-	var tween = create_tween()
+	if tween and tween.is_running():
+			tween.kill()
+	tween = get_tree().create_tween()
 	tween.set_parallel(true) 
 	tween.tween_property(background_gelap, "color:a", 0.8, 1.5) 
 	tween.tween_property(ui_container, "modulate:a", 1.0, 1.5)  
@@ -379,14 +434,14 @@ func _on_doomer_influencer_pressed() -> void:
 		queue_length += 2
 		level_doomer_influencer += 1
 		update_ui_header()
-		doomer_influencer_button.text = "$" + str(harga_doomer_influencer[level_doomer_influencer])
 	else:
 		kurang_duid_audio.play()
 		print("Duit kurang buat upgrade Doomer Influencer!")
 		
 	if level_doomer_influencer == 4:
 		doomer_influencer_button.disabled = true
-		
+	else:
+		doomer_influencer_button.text = "$" + str(harga_doomer_influencer[level_doomer_influencer])
 
 
 #func _on_tombolbeli_4_pressed() -> void:
@@ -412,18 +467,13 @@ func _on_broken_kneecap_pressed() -> void:
 	if level_broken_kneecaps == 2:
 		broken_kneecaps_button.disabled = true
 
-
 func _on_button_restart_pressed() -> void:
 	get_tree().reload_current_scene()
 func tutorial():
-	pass
-
-var dialog_lines: Array = []
-
-var current_line: int = 0
-var tween: Tween 
-
-var is_dialog_active: bool = false 
+	var dialog_lines_tutorial: Array[String] = ["Here's $100 and a business,","Expand it yourself and give me my cut every 12 weeks.", "Figure the rest out on your own."]
+	gambar_babi.visible = true
+	start_dialog(dialog_lines_tutorial)
+	gambar_babi.visible = false
 
 func start_dialog(lines: Array[String]) -> void:
 	if lines.is_empty():
@@ -433,7 +483,8 @@ func start_dialog(lines: Array[String]) -> void:
 	current_line = 0
 	is_dialog_active = true
 	
-	show() # Make the dialogue box visible
+	ui_layer.visible = true
+	#show() # Make the dialogue box visible
 	tampilkan_dialog()
 
 func tampilkan_dialog() -> void:
@@ -451,7 +502,7 @@ func tampilkan_dialog() -> void:
 	else:
 		# Hide and reset when all lines are finished
 		is_dialog_active = false
-		hide()
+		ui_layer.visible = false
 
 func _input(event: InputEvent) -> void:
 	if not is_dialog_active:
