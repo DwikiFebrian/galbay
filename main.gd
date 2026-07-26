@@ -23,7 +23,8 @@ extends Node2D
 @onready var kurang_duid_audio = $"Control/Main layout/PanelContainer/Paneh tengah/kurang duid"
 @onready var accept_audio = $"Control/Main layout/PanelContainer/Paneh tengah/accept"
 @onready var reject_audio = $"Control/Main layout/PanelContainer/Paneh tengah/reject"
-
+@onready var bgm_menang = $"Control/EngGameLayer/bgm menang"
+@onready var bgm_kalah = $"Control/EngGameLayer/bgm kalah"
 @onready var kd_counter_audio = $"Control/Main layout/list/upgrade/MarginContainer/list upgrade/counter expansion/button/kurang duid"
 
 # cutscene
@@ -35,7 +36,7 @@ var nasabah_scene = preload("res://nasabahcards.tscn")
 var active_row_scene = preload("res://nasabahaktif.tscn")
 
 # state
-var player_cash: int = 10000
+var player_cash: int = 100
 var current_turn: int = 0
 var deadline: int = 12
 var quarter: int = 0
@@ -283,9 +284,10 @@ func _on_nextweek_pressed() -> void:
 func setor_boss():
 	if player_cash < boss_goal:
 		$Control/EngGameLayer.visible = true
+		bgm_kalah.play()
 		anim_menang.visible = false
 		anim_kalah.visible = true
-		anim_kalah.play("default") 
+		anim_kalah.play("default")
 		
 		label_judul.text = "[center][b][color=#ff3333]YOU'RE THE SUCKER NOW.[/color][/b][/center]"
 		label_skor.text = "[center][b]Failed to pay the $" + str(boss_goal) + " tribute.[/b]\nYou couldn't bleed those suckers dry, [b]so the Boss is gonna bleed YOU instead.[/b]\n\n[b][All assets seized][/b][/center]"
@@ -325,6 +327,7 @@ func game_over():
 	
 func end_game():
 	$Control/EngGameLayer.visible = true
+	bgm_menang.play()
 	anim_kalah.visible = false
 	anim_menang.visible = true
 	anim_menang.play("default") 
