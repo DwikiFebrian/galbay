@@ -15,6 +15,10 @@ extends Node2D
 @onready var middle_sucker_upgrades = $"Control/Main layout/list/upgrade/MarginContainer/list upgrade/middle sucker"
 @onready var high_sucker_upgrades = $"Control/Main layout/list/upgrade/MarginContainer/list upgrade/high sucker"
 @onready var broken_kneecaps_upgrades = $"Control/Main layout/list/upgrade/MarginContainer/list upgrade/broken kneecaps"
+@onready var anim_menang = $Control/EngGameLayer/animasimenang
+@onready var anim_kalah = $Control/EngGameLayer/animasikalah
+@onready var label_judul = $Control/EngGameLayer/UIContainer/LabelJudul
+@onready var label_skor = $Control/EngGameLayer/UIContainer/LabelScore
 
 var nasabah_scene = preload("res://nasabahcards.tscn")
 var active_row_scene = preload("res://nasabahaktif.tscn")
@@ -238,7 +242,28 @@ func _on_nextweek_pressed() -> void:
 	
 func setor_boss():
 	if player_cash < boss_goal:
-		print("Game Over")
+		$Control/EngGameLayer.visible = true
+		anim_menang.visible = false
+		anim_kalah.visible = true
+		anim_kalah.play("default") 
+		
+		label_judul.text = "[center][b][color=#ff3333]YOU'RE THE SUCKER NOW.[/color][/b][/center]"
+		label_skor.text = "[center][b]Failed to pay the $" + str(boss_goal) + " tribute.[/b]\nYou couldn't bleed those suckers dry, [b]so the Boss is gonna bleed YOU instead.[/b]\n\n[b][All assets seized][/b][/center]"
+		
+		var ui_container = $Control/EngGameLayer/UIContainer
+		var background_gelap = $Control/EngGameLayer/ColorRect
+		
+		ui_container.modulate.a = 0.0
+		background_gelap.color.a = 0.0
+		anim_kalah.modulate.a = 0.0 
+
+		var tween = create_tween()
+		tween.set_parallel(true) 
+		tween.tween_property(background_gelap, "color:a", 0.8, 1.5) 
+		tween.tween_property(ui_container, "modulate:a", 1.0, 1.5) 
+		tween.tween_property(anim_kalah, "modulate:a", 1.0, 1.5)   
+		
+		$"Control/Main layout/Paneh footer/nextweek".disabled = true
 	else:
 		player_cash -= boss_goal
 		
@@ -254,8 +279,29 @@ func new_quarter():
 			broken_kneecaps_upgrades.visible = true
 		
 func end_game():
-	pass
+	$Control/EngGameLayer.visible = true
+	anim_kalah.visible = false
+	anim_menang.visible = true
+	anim_menang.play("default") 
+	
+	label_judul.text = "[center][b][color=#33cc33]YOU'RE THE BOSS NOW.[/color][/b][/center]"
+	label_skor.text = "[center][b]Tribute paid in full![/b] You've bled those suckers so dry that you just bought a seat at the table. [b]You don't pay tributes anymore—you collect them.[/b]\n\n[b]Filthy Cash Left: $" + str(player_cash) + "[/b][/center]"
+	
+	var ui_container = $Control/EngGameLayer/UIContainer
+	var background_gelap = $Control/EngGameLayer/ColorRect
+		
+	ui_container.modulate.a = 0.0
+	background_gelap.color.a = 0.0
+	anim_menang.modulate.a = 0.0 
 
+	var tween = create_tween()
+	tween.set_parallel(true) 
+	tween.tween_property(background_gelap, "color:a", 0.8, 1.5) 
+	tween.tween_property(ui_container, "modulate:a", 1.0, 1.5)  
+	tween.tween_property(anim_menang, "modulate:a", 1.0, 1.5) 
+	
+	$"Control/Main layout/Paneh footer/nextweek".disabled = true
+	
 # tombol upgrade
 
 func _on_middle_sucker_pressed() -> void:
@@ -279,8 +325,8 @@ func _on_high_sucker_pressed() -> void:
 		high_sucker_button.text ="$" +  str(harga_high_sucker[level_high_sucker])
 	else:
 		print("Duit kurang buat upgrade High Sucker")
-	if level_middle_sucker == 3:
-		middle_sucker_button.disabled = true
+	if level_high_sucker == 3:
+		high_sucker_button.disabled = true
 
 func _on_counter_expansion_pressed() -> void:
 	if player_cash >= harga_counter_expansion[level_counter_expansion_sucker]:
@@ -345,3 +391,7 @@ func _on_broken_kneecap_pressed() -> void:
 		print("Duit kurang buat Upgrade 5!")
 	if level_broken_kneecaps == 2:
 		broken_kneecaps_button.disabled = true
+
+
+func _on_button_restart_pressed() -> void:
+	get_tree().reload_current_scene()

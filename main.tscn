@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://dy5qrj8r5w056" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Texture2D" uid="uid://ni10rnjmmcud" path="res://sprite/dollar.png" id="2_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://bhotri2n8u45d" path="res://sprite/profil.png" id="3_lquwl"]
+[ext_resource type="Texture2D" uid="uid://dxukc87t54yjl" path="res://sprite/bganim.png" id="4_7mycd"]
+[ext_resource type="Texture2D" uid="uid://cike325l73sbd" path="res://sprite/playerwin.png" id="5_272bh"]
+[ext_resource type="Texture2D" uid="uid://bldppm25jnpbp" path="res://sprite/playerlose.png" id="6_5vw27"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
 content_margin_left = 8.0
@@ -41,6 +44,87 @@ bg_color = Color(0.7607843, 0.54509807, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_272bh"]
 bg_color = Color(0.9019608, 0.64705884, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kek77"]
+atlas = ExtResource("5_272bh")
+region = Rect2(0, 0, 120, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4c57u"]
+atlas = ExtResource("5_272bh")
+region = Rect2(120, 0, 120, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efxa6"]
+atlas = ExtResource("5_272bh")
+region = Rect2(240, 0, 120, 120)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dg77c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kek77")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4c57u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_efxa6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycdy4"]
+atlas = ExtResource("6_5vw27")
+region = Rect2(0, 0, 120, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w48qg"]
+atlas = ExtResource("6_5vw27")
+region = Rect2(120, 0, 120, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vivmo"]
+atlas = ExtResource("6_5vw27")
+region = Rect2(240, 0, 120, 120)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2cqfq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycdy4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w48qg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vivmo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5vw27"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.41568628, 0.07058824, 0.07058824, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.16447061, 0.013157898, 0.013140994, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kek77"]
+bg_color = Color(0.30654866, 0.04157015, 0.041536294, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="Main" type="Node2D" unique_id=1255116696]
 script = ExtResource("1_h2yge")
@@ -323,9 +407,89 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_7mycd")
 theme_override_styles/hover = SubResource("StyleBoxFlat_272bh")
 text = "Next Week!"
 
+[node name="EngGameLayer" type="CanvasLayer" parent="Control" unique_id=367604147]
+visible = false
+
+[node name="bg" type="TextureRect" parent="Control/EngGameLayer" unique_id=1626556918]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_7mycd")
+
+[node name="animasimenang" type="AnimatedSprite2D" parent="Control/EngGameLayer" unique_id=429076765]
+visible = false
+position = Vector2(264, 343)
+scale = Vector2(1.8666667, 1.9416667)
+sprite_frames = SubResource("SpriteFrames_dg77c")
+frame_progress = 0.4359891
+
+[node name="animasikalah" type="AnimatedSprite2D" parent="Control/EngGameLayer" unique_id=2002766157]
+visible = false
+position = Vector2(951, 371.10626)
+scale = Vector2(2.3833334, 2.2565625)
+sprite_frames = SubResource("SpriteFrames_2cqfq")
+frame_progress = 0.639001
+
+[node name="ColorRect" type="ColorRect" parent="Control/EngGameLayer" unique_id=237657957]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.10524046, 0.10524041, 0.1052404, 0.4509804)
+
+[node name="UIContainer" type="VBoxContainer" parent="Control/EngGameLayer" unique_id=1621772956]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -300.0
+offset_top = 192.0
+offset_right = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="LabelJudul" type="RichTextLabel" parent="Control/EngGameLayer/UIContainer" unique_id=1762340058]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/bold_font_size = 28
+theme_override_font_sizes/bold_italics_font_size = 28
+theme_override_font_sizes/italics_font_size = 28
+theme_override_font_sizes/mono_font_size = 28
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+
+[node name="LabelScore" type="RichTextLabel" parent="Control/EngGameLayer/UIContainer" unique_id=807860339]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 28
+theme_override_font_sizes/bold_font_size = 28
+theme_override_font_sizes/bold_italics_font_size = 28
+theme_override_font_sizes/italics_font_size = 28
+theme_override_font_sizes/mono_font_size = 28
+bbcode_enabled = true
+fit_content = true
+horizontal_alignment = 1
+
+[node name="ButtonRestart" type="Button" parent="Control/EngGameLayer/UIContainer" unique_id=1070706235]
+custom_minimum_size = Vector2(300, 70)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_5vw27")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kek77")
+text = "FIND NEW SUCKERS"
+
 [connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/doomer influencer/button" to="." method="_on_doomer_influencer_pressed"]
 [connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/counter expansion/button" to="." method="_on_counter_expansion_pressed"]
 [connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/middle sucker/middle sucker" to="." method="_on_middle_sucker_pressed"]
 [connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/high sucker/high sucker" to="." method="_on_high_sucker_pressed"]
 [connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/broken kneecaps/button" to="." method="_on_broken_kneecap_pressed"]
 [connection signal="pressed" from="Control/Main layout/Paneh footer/nextweek" to="." method="_on_nextweek_pressed"]
+[connection signal="pressed" from="Control/EngGameLayer/UIContainer/ButtonRestart" to="." method="_on_button_restart_pressed"]
