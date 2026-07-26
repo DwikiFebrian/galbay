@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://bd6lbv28gltdw" path="res://nasabahcards.gd" id="1_dii0h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dii0h"]
-bg_color = Color(0.68607444, 0.07567818, 0.19027558, 1)
+bg_color = Color(0.5411765, 0.14509805, 0.14509805, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8quj"]
-bg_color = Color(0.061658323, 0.34616864, 0.088351585, 1)
+bg_color = Color(0.1764706, 0.47843137, 0.24313726, 1)
 
 [node name="Nasabahcards" type="VBoxContainer" unique_id=829026303]
 script = ExtResource("1_dii0h")
