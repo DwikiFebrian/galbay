@@ -5,8 +5,8 @@ extends Node2D
 @onready var label_boss = $"Control/Main layout/Panel atas/boss"
 @onready var label_setor = $"Control/Main layout/Panel atas/setor"
 @onready var label_queue = $"Control/Main layout/Panel atas/queue"
-@onready var container_draft = $"Control/Main layout/Paneh tengah/Targetlist"
-@onready var container_aktif = $"Control/Main layout/list/VBoxContainer/Paneh bawah/list nasabah"
+@onready var container_draft = $"Control/Main layout/PanelContainer/Paneh tengah/Targetlist"
+@onready var container_aktif = $"Control/Main layout/list/VBoxContainer/Paneh bawah/PanelContainer/list nasabah"
 
 var nasabah_scene = preload("res://nasabahcards.tscn")
 var active_row_scene = preload("res://nasabahaktif.tscn")
@@ -26,6 +26,18 @@ var current_on_queue: int = 0
 var max_tampil = 2
 var weight = [3,0,0]
 
+# modifier upgrade
+var bonus_return: int = 0
+var bonus_tenor: int = 0
+var reduksi_galbay: float = 0.0
+
+# harga upgrade
+var harga_up1: int = 50
+var harga_up2: int = 50
+var harga_up3: int = 50
+var harga_up4: int = 50
+var harga_up5: int = 50
+
 # katalog manual
 var template_kelas = [
 	{
@@ -34,7 +46,15 @@ var template_kelas = [
 		"bunga_min": 0.15, "bunga_max": 0.25,
 		"return_min": 4, "return_max": 7,
 		"galbay_min": 0.15, "galbay_max": 0.25,
-		"gambar": "res://sprite/low1.png"
+		"gambar": [
+			"res://sprite/low1.png", 
+			"res://sprite/low2.png", 
+			"res://sprite/low3.png",
+			"res://sprite/low4.png",
+			"res://sprite/low5.png",
+			"res://sprite/low6.png"
+			
+		]
 	}
 	,
 	{
@@ -43,7 +63,13 @@ var template_kelas = [
 		"return_min": 10, "return_max": 18,
 		"bunga_min": 0.10, "bunga_max": 0.30,
 		"galbay_min": 0.05, "galbay_max": 0.10,
-		"gambar": "res://sprite/middle1.png"
+		"gambar": [
+			"res://sprite/middle1.png",
+			"res://sprite/middle2.png",
+			"res://sprite/middle3.png",
+			"res://sprite/middle4.png",
+			"res://sprite/middle5.png"
+		]
 	},
 	{
 		"tipe": "High Income",
@@ -51,7 +77,12 @@ var template_kelas = [
 		"return_min": 25, "return_max": 40,
 		"bunga_min": 0.05, "bunga_max": 0.35,
 		"galbay_min": 0.01, "galbay_max": 0.05,
-		"gambar": "res://sprite/high1.png"
+		"gambar": [
+			"res://sprite/high1.png",
+			"res://sprite/high2.png",
+			"res://sprite/high3.png",
+			"res://sprite/high4.png" 
+		]
 	}
 ]
 
@@ -89,11 +120,11 @@ func generate_antrean_turn(jumlah: int) -> void:
 			"modal": randi_range(kelas_terpilih["modal_min"], kelas_terpilih["modal_max"]),
 			"bunga": randf_range(kelas_terpilih["bunga_min"], kelas_terpilih["bunga_max"]),
 			#"cicilan_per_turn": randi_range(kelas_terpilih["return_min"], kelas_terpilih["return_max"]),
-			"peluang_galbay": randf_range(kelas_terpilih["galbay_min"], kelas_terpilih["galbay_max"]),
-			"tenor": 4,
-			"path_gambar": kelas_terpilih["gambar"]
+			"peluang_galbay": max(0.01, randf_range(kelas_terpilih["galbay_min"], kelas_terpilih["galbay_max"]) - reduksi_galbay),
+			"tenor": 4 + bonus_tenor,
+			"path_gambar": kelas_terpilih["gambar"].pick_random()
 		}
-		data_random["cicilan_per_turn"] = int ( ceil ( data_random["modal"] * ( 1 + data_random["bunga"]) / data_random["tenor"] ) )
+		data_random["cicilan_per_turn"] = int(ceil(data_random["modal"] * (1 + data_random["bunga"]) / data_random["tenor"])) + bonus_return
 		antrean_nasabah.append(data_random) # Masukkan ke dalam antrean
 		
 	isi_slot_kosong()
@@ -149,7 +180,7 @@ func proses_tolak_nasabah(kartu: Node) -> void:
 func _on_nextweek_pressed() -> void:
 	print("minggu berganti")
 	
-	var penghutang = get_node("Control/Main layout/list/VBoxContainer/Paneh bawah/list nasabah")
+	var penghutang = get_node("Control/Main layout/list/VBoxContainer/Paneh bawah/PanelContainer/list nasabah")
 	for nasabah in penghutang.get_children():
 		#var kartu_baru = active_row_scene.instantiate()
 		#player_cash += nasabah["cicilan_per_turn"]
@@ -158,6 +189,9 @@ func _on_nextweek_pressed() -> void:
 	
 	for i in range(len(nasabah_aktif) - 1, -1, -1):
 		var nasabah = nasabah_aktif[i]
+		if nasabah.has("is_galbay") and nasabah["is_galbay"] == true:
+			nasabah_aktif.remove_at(i)
+			continue
 		player_cash += nasabah["cicilan_per_turn"]
 		nasabah["tenor"] -= 1
 		if nasabah["tenor"] == 0:
@@ -184,3 +218,55 @@ func setor_boss():
 		
 func new_quarter():
 	pass
+
+# tombol upgrade
+
+func _on_tombolbeli_1_pressed() -> void:
+	if player_cash >= harga_up1:
+		player_cash -= harga_up1
+		max_tampil += 1 
+		harga_up1 += 30 
+		update_ui_header()
+		isi_slot_kosong() 
+	else:
+		print("Duit kurang buat Upgrade 1!")
+
+
+func _on_tombolbeli_2_pressed() -> void:
+	if player_cash >= harga_up2:
+		player_cash -= harga_up2
+		bonus_return += 1
+		harga_up2 += 50
+		update_ui_header()
+	else:
+		print("Duit kurang buat Upgrade 2!")
+
+
+func _on_tombolbeli_3_pressed() -> void:
+	if player_cash >= harga_up3:
+		player_cash -= harga_up3
+		queue_length += 2
+		harga_up3 += 50
+		update_ui_header()
+	else:
+		print("Duit kurang buat Upgrade 3!")
+
+
+func _on_tombolbeli_4_pressed() -> void:
+	if player_cash >= harga_up4:
+		player_cash -= harga_up4
+		bonus_tenor += 1
+		harga_up4 += 50
+		update_ui_header()
+	else:
+		print("Duit kurang buat Upgrade 4!")
+
+
+func _on_tombolbeli_5_pressed() -> void:
+	if player_cash >= harga_up5:
+		player_cash -= harga_up5
+		reduksi_galbay += 0.03
+		harga_up5 += 50
+		update_ui_header()
+	else:
+		print("Duit kurang buat Upgrade 5!")

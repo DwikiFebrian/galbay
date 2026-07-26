@@ -4,6 +4,44 @@
 [ext_resource type="Texture2D" uid="uid://ni10rnjmmcud" path="res://sprite/dollar.png" id="2_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://bhotri2n8u45d" path="res://sprite/profil.png" id="3_lquwl"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.13725491, 0.13725491, 0.18431373, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.23137255, 0.23137255, 0.30980393, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2yge"]
+bg_color = Color(0.11372549, 0.11764706, 0.14901961, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.19607843, 0.2, 0.2509804, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lquwl"]
+bg_color = Color(0.07058824, 0.07058824, 0.09411765, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2509804, 0.16470589, 0.16470589, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mycd"]
+bg_color = Color(0.7607843, 0.54509807, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_272bh"]
+bg_color = Color(0.9019608, 0.64705884, 0, 1)
+
 [node name="Main" type="Node2D" unique_id=1255116696]
 script = ExtResource("1_h2yge")
 
@@ -14,6 +52,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=982796040]
+layout_mode = 0
+offset_right = 1169.0
+offset_bottom = 663.0
+color = Color(0.09411765, 0.09411765, 0.1254902, 1)
 
 [node name="Main layout" type="VBoxContainer" parent="Control" unique_id=1270439114]
 layout_mode = 1
@@ -30,7 +74,6 @@ grow_vertical = 2
 [node name="Panel atas" type="HBoxContainer" parent="Control/Main layout" unique_id=19668901]
 layout_mode = 2
 theme_override_constants/separation = 4
-alignment = 1
 
 [node name="dollar" type="TextureRect" parent="Control/Main layout/Panel atas" unique_id=549092715]
 texture_filter = 1
@@ -46,7 +89,12 @@ size_flags_horizontal = 3
 visible = false
 layout_mode = 2
 
+[node name="Control" type="Control" parent="Control/Main layout/Panel atas" unique_id=1212215435]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="profil" type="TextureButton" parent="Control/Main layout/Panel atas" unique_id=230863456]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Profil"
@@ -57,7 +105,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "nasabah di luar"
 
-[node name="Control" type="Control" parent="Control/Main layout/Panel atas" unique_id=1212215435]
+[node name="Control2" type="Control" parent="Control/Main layout/Panel atas" unique_id=1666542954]
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -78,17 +126,31 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "1/n"
 
-[node name="Paneh tengah" type="VBoxContainer" parent="Control/Main layout" unique_id=269468019]
+[node name="HSeparator" type="HSeparator" parent="Control/Main layout" unique_id=1971123091]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="Control/Main layout" unique_id=601689950]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_1bvp3")
+
+[node name="Paneh tengah" type="VBoxContainer" parent="Control/Main layout/PanelContainer" unique_id=269468019]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="Control/Main layout/Paneh tengah" unique_id=745623791]
+[node name="Label" type="Label" parent="Control/Main layout/PanelContainer/Paneh tengah" unique_id=745623791]
 layout_mode = 2
-text = "Find target!"
+theme_override_font_sizes/font_size = 20
+text = "Find Target!"
 
-[node name="Targetlist" type="HBoxContainer" parent="Control/Main layout/Paneh tengah" unique_id=216423379]
+[node name="Targetlist" type="HBoxContainer" parent="Control/Main layout/PanelContainer/Paneh tengah" unique_id=216423379]
 layout_mode = 2
 theme_override_constants/separation = 16
+
+[node name="HSeparator2" type="HSeparator" parent="Control/Main layout" unique_id=1946077989]
+layout_mode = 2
+theme_override_constants/separation = 4
 
 [node name="list" type="HBoxContainer" parent="Control/Main layout" unique_id=1648893675]
 layout_mode = 2
@@ -100,30 +162,148 @@ size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="Control/Main layout/list/VBoxContainer" unique_id=872674999]
 layout_mode = 2
-text = "List active"
+theme_override_font_sizes/font_size = 20
+text = "List Active"
 
 [node name="Paneh bawah" type="ScrollContainer" parent="Control/Main layout/list/VBoxContainer" unique_id=943112445]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="list nasabah" type="VBoxContainer" parent="Control/Main layout/list/VBoxContainer/Paneh bawah" unique_id=1084855284]
-layout_mode = 2
-
-[node name="upgrade" type="VBoxContainer" parent="Control/Main layout/list" unique_id=1064776706]
+[node name="PanelContainer" type="PanelContainer" parent="Control/Main layout/list/VBoxContainer/Paneh bawah" unique_id=1702674680]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h2yge")
 
-[node name="Label" type="Label" parent="Control/Main layout/list/upgrade" unique_id=1836321340]
+[node name="list nasabah" type="VBoxContainer" parent="Control/Main layout/list/VBoxContainer/Paneh bawah/PanelContainer" unique_id=1084855284]
 layout_mode = 2
+
+[node name="upgrade" type="PanelContainer" parent="Control/Main layout/list" unique_id=1772290496]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_lquwl")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Main layout/list/upgrade" unique_id=1458133597]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="list upgrade" type="VBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer" unique_id=228447674]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="upgrade" type="Label" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=1836321340]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
 text = "Upgrades!"
+horizontal_alignment = 1
 
-[node name="scroll upgrade" type="ScrollContainer" parent="Control/Main layout/list/upgrade/Label" unique_id=262782240]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="list upgrade" type="VBoxContainer" parent="Control/Main layout/list/upgrade/Label/scroll upgrade" unique_id=1206199179]
+[node name="upgrade1" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=825694176]
 layout_mode = 2
+
+[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade1" unique_id=1571306548]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+bbcode_enabled = true
+text = "[b]Street Eyes[/b]
+Display [color=green]+1 Sucker[/color] on screen."
+fit_content = true
+
+[node name="tombolbeli1" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade1" unique_id=786783359]
+custom_minimum_size = Vector2(70, 35)
+layout_mode = 2
+text = "$40"
+
+[node name="upgrade2" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=1709865997]
+layout_mode = 2
+
+[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade2" unique_id=1506040637]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+bbcode_enabled = true
+text = "[b]Squeeze 'Em Dry[/b]
+Base return [color=green]+$1/turn[/color]."
+fit_content = true
+
+[node name="tombolbeli2" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade2" unique_id=1581557817]
+custom_minimum_size = Vector2(70, 35)
+layout_mode = 2
+text = "$50"
+
+[node name="upgrade3" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=1521715919]
+layout_mode = 2
+
+[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade3" unique_id=624766120]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+bbcode_enabled = true
+text = "[b]Desperate Masses[/b]
+Target queue [color=green]+2 Suckers[/color]."
+fit_content = true
+
+[node name="tombolbeli3" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade3" unique_id=93634786]
+custom_minimum_size = Vector2(70, 35)
+layout_mode = 2
+text = "$50"
+
+[node name="upgrade4" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=41873292]
+layout_mode = 2
+
+[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade4" unique_id=1225803541]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+bbcode_enabled = true
+text = "[b]Debt Trap[/b]
+Loan duration [color=green]+1 Week[/color]."
+fit_content = true
+
+[node name="tombolbeli4" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade4" unique_id=474643609]
+custom_minimum_size = Vector2(70, 35)
+layout_mode = 2
+text = "$50"
+
+[node name="upgrade5" type="HBoxContainer" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade" unique_id=1144999481]
+layout_mode = 2
+
+[node name="infotext" type="RichTextLabel" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade5" unique_id=1824002813]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+theme_override_font_sizes/bold_italics_font_size = 12
+theme_override_font_sizes/italics_font_size = 12
+theme_override_font_sizes/mono_font_size = 12
+bbcode_enabled = true
+text = "[b]Broken Kneecaps[/b]
+Default risk [color=green]-3%[/color]."
+fit_content = true
+
+[node name="tombolbeli5" type="Button" parent="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade5" unique_id=23778035]
+custom_minimum_size = Vector2(70, 35)
+layout_mode = 2
+text = "$50"
 
 [node name="Paneh footer" type="HBoxContainer" parent="Control/Main layout" unique_id=487630468]
 layout_mode = 2
@@ -133,8 +313,16 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="nextweek" type="Button" parent="Control/Main layout/Paneh footer" unique_id=91361338]
-custom_minimum_size = Vector2(150, 70)
+custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.07058824, 0.07058824, 0.09411765, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_7mycd")
+theme_override_styles/hover = SubResource("StyleBoxFlat_272bh")
 text = "Next Week!"
 
+[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade1/tombolbeli1" to="." method="_on_tombolbeli_1_pressed"]
+[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade2/tombolbeli2" to="." method="_on_tombolbeli_2_pressed"]
+[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade3/tombolbeli3" to="." method="_on_tombolbeli_3_pressed"]
+[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade4/tombolbeli4" to="." method="_on_tombolbeli_4_pressed"]
+[connection signal="pressed" from="Control/Main layout/list/upgrade/MarginContainer/list upgrade/upgrade5/tombolbeli5" to="." method="_on_tombolbeli_5_pressed"]
 [connection signal="pressed" from="Control/Main layout/Paneh footer/nextweek" to="." method="_on_nextweek_pressed"]
