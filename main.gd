@@ -23,7 +23,8 @@ extends Node2D
 @onready var kurang_duid_audio = $"Control/Main layout/PanelContainer/Paneh tengah/kurang duid"
 @onready var accept_audio = $"Control/Main layout/PanelContainer/Paneh tengah/accept"
 @onready var reject_audio = $"Control/Main layout/PanelContainer/Paneh tengah/reject"
-
+@onready var bgm_menang = $"Control/EngGameLayer/bgm menang"
+@onready var bgm_kalah = $"Control/EngGameLayer/bgm kalah"
 @onready var kd_counter_audio = $"Control/Main layout/list/upgrade/MarginContainer/list upgrade/counter expansion/button/kurang duid"
 
 # cutscene
@@ -64,11 +65,11 @@ var bonus_tenor: int = 0
 var reduksi_galbay: float = 0.0
 
 # harga upgrade
-var harga_counter_expansion = [40, 75]
-var harga_middle_sucker = [50, 75, 100]
-var harga_high_sucker = [100, 200, 300]
-var harga_doomer_influencer = [30, 67, 100, 200]
-var harga_broken_kneecap = [75, 140]
+var harga_counter_expansion = [30, 60]
+var harga_middle_sucker = [40, 60, 85]
+var harga_high_sucker = [80, 165, 250]
+var harga_doomer_influencer = [30, 67, 100, 180]
+var harga_broken_kneecap = [60, 125]
 
 # level upgrade
 var level_middle_sucker = 0
@@ -347,6 +348,7 @@ func game_over():
 	
 func end_game():
 	$Control/EngGameLayer.visible = true
+	bgm_menang.play()
 	anim_kalah.visible = false
 	anim_menang.visible = true
 	anim_menang.play("default") 
@@ -379,12 +381,13 @@ func _on_middle_sucker_pressed() -> void:
 		weight[1] += 4
 		level_middle_sucker += 1
 		update_ui_header()
-		middle_sucker_button.text ="$" +  str(harga_middle_sucker[level_middle_sucker])
 	else:
 		kurang_duid_audio.play()
 		print("Duit kurang buat upgrade Middle Sucker")
 	if level_middle_sucker == 2:
 		middle_sucker_button.disabled = true
+	else:
+		middle_sucker_button.text ="$" +  str(harga_middle_sucker[level_middle_sucker])
 		
 func _on_high_sucker_pressed() -> void:
 	if player_cash >= harga_high_sucker[level_high_sucker]:
@@ -392,12 +395,13 @@ func _on_high_sucker_pressed() -> void:
 		weight[1] += 5
 		level_high_sucker += 1
 		update_ui_header()
-		high_sucker_button.text ="$" +  str(harga_high_sucker[level_high_sucker])
 	else:
 		kurang_duid_audio.play()
 		print("Duit kurang buat upgrade High Sucker")
 	if level_high_sucker == 3:
 		high_sucker_button.disabled = true
+	else:
+		high_sucker_button.text ="$" +  str(harga_high_sucker[level_high_sucker])
 
 func _on_counter_expansion_pressed() -> void:
 	if player_cash >= harga_counter_expansion[level_counter_expansion_sucker]:
@@ -460,12 +464,13 @@ func _on_broken_kneecap_pressed() -> void:
 		level_broken_kneecaps += 1
 		update_ui_header()
 		
-		broken_kneecaps_button.text = "$" + str(harga_broken_kneecap[level_broken_kneecaps])
 	else:
 		kurang_duid_audio.play()
 		print("Duit kurang buat Upgrade 5!")
 	if level_broken_kneecaps == 2:
 		broken_kneecaps_button.disabled = true
+	else:
+		broken_kneecaps_button.text = "$" + str(harga_broken_kneecap[level_broken_kneecaps])
 
 func _on_button_restart_pressed() -> void:
 	get_tree().reload_current_scene()

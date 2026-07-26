@@ -11,6 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://bldppm25jnpbp" path="res://sprite/playerlose.png" id="6_5vw27"]
 [ext_resource type="AudioStream" uid="uid://b0mvjwx27rwod" path="res://sound/reject.wav" id="6_7mycd"]
 [ext_resource type="Texture2D" uid="uid://df5bsiquyqhdk" path="res://sprite/babi1.png" id="11_efxa6"]
+[ext_resource type="AudioStream" uid="uid://dnftrhuaveo4i" path="res://sound/769801__thelastoneonearth__groovy-winner-end-version.wav" id="11_dg77c"]
+[ext_resource type="AudioStream" uid="uid://df0x1a6nqob2x" path="res://sound/135831__davidbain__end-game-fail.wav" id="12_ycdy4"]
+
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
 content_margin_left = 8.0
@@ -456,6 +459,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.10524046, 0.10524041, 0.1052404, 0.4509804)
+
+[node name="bgm menang" type="AudioStreamPlayer" parent="Control/EngGameLayer" unique_id=1293157655]
+stream = ExtResource("11_dg77c")
+
+[node name="bgm kalah" type="AudioStreamPlayer" parent="Control/EngGameLayer" unique_id=1768055598]
+stream = ExtResource("12_ycdy4")
 
 [node name="UIContainer" type="VBoxContainer" parent="Control/EngGameLayer" unique_id=1621772956]
 anchors_preset = 13
